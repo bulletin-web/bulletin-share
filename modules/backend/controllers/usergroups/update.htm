@@ -1,0 +1,57 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><?= e(trans('backend::lang.user.menu_label')) ?></li>
+    <li><?= e(trans('backend::lang.user.group.menu_label')) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+<?= Form::open(['class'=>'layout']) ?>
+
+<div class="col-md-8">
+    <div class="layout-row">
+        <?= $this->formRender() ?>
+        <?php if(!$this->user->hasAccess('backend.group.edit_group')): ?>
+        <?= $this->makePartial('disabled_input') ?>
+        <?php endif ?>
+    </div>
+
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <?php if($this->user->hasAccess('backend.group.edit_group')): ?>
+            <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-primary">
+                &nbsp;&nbsp;&nbsp;&nbsp;<?= e(trans('backend::lang.form.save')) ?>&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
+            <button
+                    type="reset"
+                    class="btn btn-primary">
+                <?= e(trans('backend::lang.form.cancel')) ?>
+            </button>
+            <?php endif ?>
+            <?php if($this->user->hasAccess('backend.group.delete_group')): ?>
+            <button style="background: #c82a1c"
+                    type="button"
+                    class="btn btn-danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.user.group.delete_confirm')) ?>">
+                &nbsp;&nbsp;&nbsp;&nbsp;<?= e(trans('backend::lang.form.delete')) ?>&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
+            <?php endif ?>
+        </div>
+    </div>
+</div>
+
+<?= Form::close() ?>
+
+<?php else: ?>
+<p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+<p><a href="<?= Backend::url('backend/usergroups') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.group.return')) ?></a></p>
+<?php endif ?>

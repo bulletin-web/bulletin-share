@@ -1,0 +1,144 @@
+<?php Block::put('breadcrumb') ?>
+
+<ul>
+    <li><?= e(trans('system::lang.system.categories.website')) ?></li>
+    <li><?= e(trans('backend::lang.site-backup.title')) ?></li>
+</ul>
+<?php Block::endPut() ?>
+<div class="container-fluid">
+    <div class="row">
+        <h3>バックアップ</h3>
+        <div class="col-md-12 mb-15">
+            <span class="col-md-3">データベースのバックアップを保存する</span>
+            <a href="<?= Backend::url('backend/backup/exportDatabase') ?>" class="btn btn-primary" style="text-align: center; width: 155px">バックアップを保存</a>
+        </div>
+        <div class="col-md-12">
+            <span class="col-md-3">コンテンツを保存する</span>
+            <a href="<?= Backend::url('backend/backup/zipmedia') ?>" class="btn btn-primary" style="text-align: center; width: 155px">コンテンツを保存</a>
+        </div>
+    </div>
+    <form action="<?= Backend::url('backend/backup/setting') ?>" method="post">
+        <div class="row">
+            <h3>定期バックアップ</h3>
+            <div class="col-md-12">
+                <p class="col-md-12">データベースのバックアップを保存する場所</p>
+                <p class="col-md-12">
+                    <input class="form-control" type="text" style="width: 30%" name="storage_path"
+                        value="<?php echo $this->data ? $this->data->storage_path : '' ?>">
+                </p>
+                <p class="col-md-12">スケジュール</p>
+                <div class="col-md-12 mb-5">
+                    <?php
+                        $option = '';
+
+                        if ($this->data && isset($this->data->schedule_option)) {
+                            $option = $this->data->schedule_option;
+                        }
+                    ?>
+                    <div class="form-group">
+                        <div class="radio custom-radio radio-inline">
+                            <input type="radio" name="schedule_option" value="1" id="schedule_option_1"
+                            <?php echo $option == 1 ? 'checked' : '' ?>>
+                            <label for="schedule_option_1">毎日</label>
+                        </div>
+                        <input type="text" class="ml-15 form-control" name="schedule_time_1" id="schedule_time_1" style="width: 10%; display: inline"
+                               value="<?php echo $this->data ? $this->data->schedule_time_1 : '' ?>"> <span>時</span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="radio custom-radio radio-inline">
+                            <input type="radio" name="schedule_option" value="2" id="schedule_option_2"
+                            <?php echo $option == 2 ? 'checked' : '' ?>>
+                            <label for="schedule_option_2">週１回</label>
+                        </div>
+                        <?php
+                            $dayOfWeek = ['7' => '日曜日', '1' => '月曜日', '2' => '火曜日', '3' => '水曜日', '4' => '木曜日', '5' => '金曜日', '6' => '土曜日'];
+                            $selected = 0;
+
+                            if ($this->data && isset($this->data->schedule_day)) {
+                                $selected = $this->data->schedule_day;
+                            }
+                        ?>
+                        <select name="schedule_day" class="form-control schedule_day" style="width: 10%; display: inline; margin-left: 2px; text-align: center">
+                            <option value="">-- 選択 --</option>
+                            <?php foreach($dayOfWeek as $key => $value) { ?>
+                            <option value="<?php echo $key; ?>" <?php echo $selected == $key ? 'selected' : ''; ?> ><?php echo $value; ?></option>
+                            <?php } ?>
+                        </select>
+
+                        <input type="text" class="ml-15 form-control" name="schedule_time_2" id="schedule_time_2" style="width: 10%; display: inline"
+                               value="<?php echo $this->data ? $this->data->schedule_time_2 : '' ?>"> <span>時</span>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="<?= Backend::url('backend/backup/importSql') ?>" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <h3>バックアップからデータベースを復元</h3>
+            <div class="col-md-12">
+                <p class="col-md-12">バックアップファイルを選択</p>
+                <div class="col-md-4 file-upload">
+                    <input style="height: auto;" class="form-control" type="file" name="fileImport">
+                </div>
+                <div class="col-md-12" style="margin-top: 5px">
+                    <button type="submit" class="btn btn-primary">復元</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Flash Messages -->
+<div id="layout-flash-messages"><?= $this->makeLayoutPartial('template_messages') ?></div>
+
+<script>
+    $(document).ready(function () {
+        if ($('#schedule_option_1').is(':checked')) {
+            $('#schedule_time_2').attr('readonly', true);
+            $('.schedule_day').attr('disabled', true);
+        }
+
+        if ($('#schedule_option_2').is(':checked')) {
+            $('#schedule_time_1').attr('readonly', true);
+        }
+
+        $('#schedule_option_1').click( function() {
+            $('#schedule_time_2').attr('readonly', true);
+            $('.schedule_day').attr('disabled', true);
+            $('#schedule_time_1').removeAttr('readonly');
+        });
+
+        $('#schedule_option_2').click( function () {
+            $('#schedule_time_1').attr('readonly', true);
+            $('#schedule_time_2').removeAttr('readonly');
+            $('.schedule_day').removeAttr("disabled");
+        });
+
+        $('#chooseFile').bind('change', function () {
+            var filename = $("#chooseFile").val();
+            if (/^\s*$/.test(filename)) {
+                $(".file-upload").removeClass('active');
+                $("#noFile").text("");
+            }
+            else {
+                $(".file-upload").addClass('active');
+                $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+            }
+        });
+
+        $('#layout-flash-messages').click( function() {
+            $(this).remove();
+        });
+
+        setTimeout(function() {
+            $('#layout-flash-messages').remove();
+        }, 5000);
+    });
+
+</script>

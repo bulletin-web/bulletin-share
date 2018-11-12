@@ -1,0 +1,33 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    code:
+        label: backend::lang.user.group.code_field
+        searchable: true
+        sortable: true
+
+    name:
+        label: backend::lang.user.group.name_field
+        searchable: true
+        sortable: true
+
+    description:
+        label: backend::lang.user.group.description_field
+        searchable: true
+        sortable: true
+
+    display_order:
+        label: backend::lang.user.group.display_order_field
+        sortable: true
+
+#    users_count:
+#        label: backend::lang.user.group.users_count
+#
+#        invisible: true
+#        relation: users_count
+#        valueFrom: count
+#        default: 0
+#        sortable: false

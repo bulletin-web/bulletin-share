@@ -1,0 +1,13 @@
+fields:
+
+    id:
+      label: ID
+      disabled: true
+      cssClass: paddingCustom
+
+    content:
+      label: コメント
+      type: textarea
+      size: large
+      required: true
+      cssClass: paddingCustom

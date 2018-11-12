@@ -1,0 +1,10 @@
+<?php if(isset($this->data->logo) && !empty($this->data->logo)): ?>
+<div class="col-md-4">
+    <div class="col-md-offset-1 col-md-9">
+        <span>ロゴプレビュー</span>
+        <div class="form-group">
+            <img class="img-thumbnail" width="100%" src="<?= $this->data->logo ?>">
+        </div>
+    </div>
+</div>
+<?php endif ?>

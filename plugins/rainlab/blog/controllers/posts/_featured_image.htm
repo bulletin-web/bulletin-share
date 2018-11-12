@@ -1,0 +1,25 @@
+<tr>
+    <td class="left">
+        <div class="text-center">
+            <i class="fas fa-table fa-2x"></i>
+            <h5>本文</h5>
+        </div>
+    </td>
+    <td class="right">
+        <div class="row">
+            <div class="col-xs-12 required m10b">アイキャッチ画像</div>
+            <div class="col-sm-3">
+                <div class="file-upload">
+                    <i class="fas fa-upload fa-3x"></i>
+                    <input type="file" onchange="readURL(this);" />
+                    <img id="preview-img" src="" alt="" />
+                    <input type="hidden" name="Post[featured_image]" id="img-file-data" class="form-control"/>
+                </div>
+            </div>
+            <div class="col-sm-9 p230t">
+                <label>
+                    <input type="checkbox" name="Post[is_slide_show]" value="0" />
+                    スライダーに表示
+                </label>
+                <a href="#" class="color-orange hide">タイトルを入力してください</a>
+            </div>

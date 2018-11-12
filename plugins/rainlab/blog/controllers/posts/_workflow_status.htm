@@ -1,0 +1,16 @@
+<?php if (!$this->is_create): ?>
+
+<tr style="display: none">
+    <td class="left"></td>
+    <td class="right">
+        <?php if ($this->workflow_status['statusPost']!= 4 && $this->workflow_status['statusPost']!= 5 && $this->workflow_status['statusPost']!= 6 && $this->workflow_status['statusPost']!= 8): ?>
+        <?php if ($this->workflow_status['count']): ?>
+        <div style="margin-top: 25px">
+            <p>進行　<?= $this->workflow_status['count'] ?>人中　<?= $this->workflow_status['approved'] ?>人が承認<?php if ($this->workflow_status['count'] != $this->workflow_status['approved']) : ?>　次の承認者は　<?= $this->workflow_status['user'] ?>さん　です<?php endif ?>。</p>
+        </div>
+        <?php endif ?>
+        <?php endif ?>
+    </td>
+</tr>
+<?php endif ?>
+

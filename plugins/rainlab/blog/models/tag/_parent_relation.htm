@@ -1,0 +1,58 @@
+<span style="color: red; padding-left: 5px">※「親タグ」として設定されたときは選択できない</span>
+    <table class="table">
+        <tr>
+            <th class="col-lg-5">
+                <select id="parent_tag_assigned" style="height: 180px" multiple class="form-control">
+                </select>
+                <span id="parent_list"></span>
+            </th>
+            <th class="col-lg-2">
+                <span id="remove" style="text-align: center" class="btn btn-default btn-block btn-lg">削除→</span>
+                <span id="add" style="text-align: center" class="btn btn-default btn-block btn-lg">←追加</span>
+            </th>
+            <th class="col-lg-5">
+                <select id="parent_tag_list_default" style="height: 180px" multiple class="form-control">
+                    <?php if($this->parent_tag): ?>
+                        <?php foreach($this->parent_tag as $tag): ?>
+                            <option value="<?= $tag->id ?>" class="form-control custom-form-control"><?= $tag->name ?></option>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                </select>
+            </th>
+        </tr>
+    </table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var parent_list = [];
+        $('#add:not(:disabled)').click(function () {
+            var parent_tag_id = parseInt($('#parent_tag_list_default').val());
+            if (parent_tag_id) {
+                $('#parent_list').append('<input class="hidden" name="Tag[parent_tag_list][]" value="' + parent_tag_id + '">');
+                var element_parent_tag = $('#parent_tag_list_default option[value=' + parent_tag_id + ']').clone();
+                $('#parent_tag_list_default option[value=' + parent_tag_id + ']').remove();
+                $('#parent_tag_assigned').append(element_parent_tag);
+            }
+        });
+        $('#remove:not(:disabled)').click(function () {
+            var parent_tag_id = parseInt($('#parent_tag_assigned').val());
+            if (parent_tag_id) {
+                $('input[value="' + parent_tag_id + '"]').remove();
+                var element_parent_tag = $('#parent_tag_assigned option[value=' + parent_tag_id + ']').clone();
+                $('option[value=' + parent_tag_id + ']').remove();
+                $('#parent_tag_list_default').append(element_parent_tag);
+            }
+        });
+        $('#Form-field-Tag-is_parent-group').click(function () {
+            disableFields();
+        });
+
+        function disableFields() {
+            var is_parent = $('input[name="Tag[is_parent]"]:checked').val();
+            if (is_parent) {
+                $('#parent_tag_assigned, #parent_tag_list_default, option, #remove, #add').attr('disabled', true);
+            } else {
+                $('#parent_tag_assigned, #parent_tag_list_default, option, #remove, #add').removeAttr('disabled');
+            }
+        }
+    });
+</script>

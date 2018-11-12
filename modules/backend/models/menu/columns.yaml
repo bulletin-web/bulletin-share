@@ -1,0 +1,25 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    is_active:
+        label: false
+        searchable: false
+        sortable: false
+        width: 5%
+        type: partial
+        path: ~/modules/backend/models/menu/_is_active.htm
+
+    name:
+        label: backend::lang.menu.name
+        searchable: true
+        sortable: true
+        width: 45%
+
+    description:
+        label: backend::lang.user.group.description_field
+        searchable: true
+        sortable: true
+        width: 50%

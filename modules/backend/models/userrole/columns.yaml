@@ -1,0 +1,16 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: #
+        searchable: true
+
+    name:
+        label: backend::lang.user.role.name_field
+        searchable: true
+
+    description:
+        label: backend::lang.user.role.description_field
+        searchable: yes

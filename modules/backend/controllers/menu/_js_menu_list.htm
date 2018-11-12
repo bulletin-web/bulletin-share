@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#menu_fields').delegate('.location', 'keypress', function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+        $('#menu_fields').delegate('.td, .checkbox-custom', 'click', function () {
+            var tr = $(this).parent();
+            if (tr.find('.checkbox-custom').prop('checked')) {
+                tr.find('.checkbox-custom').prop('checked', false);
+                tr.find('.location').prop('disabled', true);
+            } else {
+                tr.find('.checkbox-custom').prop('checked', true);
+                tr.find('.location').prop('disabled', false);
+            }
+        });
+        $('#menu_fields').delegate('button[type=reset]', 'click', function () {
+            $('#menu_fields').load(location.href + " #menu_fields>*","");
+        });
+        $('#menu_fields').delegate('.checkbox-all', 'click', function () {
+           if ($(this).prop('checked')) {
+               $('.checkbox-custom').prop('checked', true);
+               $('.location').prop('disabled', false);
+           } else {
+               $('.checkbox-custom').prop('checked', false);
+               $('.location').prop('disabled', true);
+           }
+        });
+    });
+</script>

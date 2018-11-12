@@ -1,0 +1,11 @@
+<script type="application/javascript">
+    $(document).ready(function () {
+        $('#sitebar_category').on('change', function () {
+            $('#sitebar_tag').find('option[value=""]').prop('selected', true);
+        });
+        $('#sitebar_tag').on('change', function () {
+            $('#sitebar_category').find('option[value=""]').prop('selected', true);
+        });
+        $('label[for="Form-field-SiteBar-name"]').html('タイトル・非表示');
+    });
+</script>

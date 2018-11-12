@@ -1,0 +1,33 @@
+fields:
+      last_name:
+          label: backend::lang.user.last_name
+          placeholder: backend::lang.user.last_name
+
+      first_name:
+          label: backend::lang.user.first_name
+          placeholder: backend::lang.user.first_name
+
+      gender:
+          span: left
+          label: backend::lang.user.gender
+          type: dropdown
+          placeholder: -- 選択 --
+          showSearch: false
+
+      relationship:
+          span: right
+          label: backend::lang.user.relationship
+          type: dropdown
+          placeholder: -- 選択 --
+          showSearch: false
+
+      birthday:
+          label: backend::lang.user.birthday
+          span: left
+          type: datepicker
+          mode: date
+          minDate: "1900-01-01"
+          maxDate: "2030-01-01"
+          yearRange: "100"
+          firstDay: "1"
+

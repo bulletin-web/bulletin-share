@@ -1,0 +1,31 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <td width="10%"><input class="checkbox-all checkbox-css" type="checkbox"></td>
+        <td width="80">担当者</td>
+        <td width="10%">順番</td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if ($this->listUser): ?>
+    <?php foreach($this->listUser as $key => $user): ?>
+    <tr>
+        <td class="td"><input checked class="checkbox-custom checkbox-css" type="checkbox"></td>
+        <td class="td"><?= app('backend.approve')->getUserName($user->id) ?></td>
+        <td><input name="WorkFlow[user][<?= $user->id ?>]" class="form-control location" maxlength="3" value="<?= $key ?>"></td>
+    </tr>
+    <?php endforeach ?>
+    <?php endif ?>
+    <?php if ($this->listCurentUser): ?>
+    <?php foreach($this->listCurentUser as $user): ?>
+    <tr>
+        <td class="td"><input class="checkbox-custom checkbox-css" type="checkbox"></td>
+        <td class="td"><?= $user->last_name.' '.$user->first_name ?></td>
+        <td><input name="WorkFlow[user][<?= $user->id ?>]" class="form-control location" disabled maxlength="3"></td>
+    </tr>
+    <?php endforeach ?>
+    <?php endif ?>
+    </tbody>
+</table>
+
+<?= $this->makePartial('js_workflow_list') ?>

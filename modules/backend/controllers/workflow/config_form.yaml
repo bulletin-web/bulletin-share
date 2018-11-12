@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: backend::lang.workflow.title
+form: ~/modules/backend/models/workflow/fields.yaml
+modelClass: Backend\Models\WorkFlow
+defaultRedirect: backend/workflow
+
+create:
+    redirect: backend/workflow/update/:id
+    redirectClose: backend/workflow
+
+update:
+    redirect: backend/workflow
+    redirectClose: backend/workflow

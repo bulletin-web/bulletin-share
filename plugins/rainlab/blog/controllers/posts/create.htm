@@ -1,0 +1,152 @@
+<?php if($this->user->hasAccess('backend.blog.add_new_post')): ?>
+<?php if (!$this->fatalError): ?>
+<style>
+    .new-create-view #Form-field-Post-title-group .col-sm-6,
+    .new-create-view #Form-field-Post-slug-group .col-sm-6,
+    .new-create-view #Form-field-Post-action-group {
+        width: 100%;
+        padding: 0;
+    }
+
+    .new-create-view #Form-field-Post-has_comment-group,
+    .new-create-view #Form-field-Post-published_at-group,
+    .new-create-view #Form-field-Post-toolbar-group {
+        padding-bottom: 0;
+    }
+
+    .new-create-view #Form-field-Post-action .col-sm-3 {
+        margin-top: 10px;
+    }
+
+    .new-create-view .actions-wrap.top,
+    .new-create-view .actions-wrap.top .loading-indicator {
+        top: -10px !important;
+        padding-bottom: 9px;
+    }
+</style>
+<div class="new-create-view">
+    <?= Form::open([
+        'class' => 'layout',
+        'data-change-monitor' => 'true',
+        'data-window-close-confirm' => e(trans('rainlab.blog::lang.post.close_confirm')),
+        'id' => 'post-form',
+        'files' => true,
+    ]) ?>
+    <div class="actions-wrap top p15">
+        <div class="row">
+            <div class="col-xs-12">アクション</div>
+            <div class="col-sm-4 action-main">
+                <?= $this->formRenderField('action') ?>
+            </div>
+            <div class="col-sm-2">
+                <?= $this->formRenderField('toolbar') ?>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-default" onclick="Preview()">プレビュー</a>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <?= $this->makePartial('workflow_id') ?>
+            <?= $this->makePartial('category_id') ?>
+            <?= $this->formRenderField('tags') ?>
+            <tr>
+                <td class="left">
+                    <div class="text-center">
+                        <i class="fas fa-table fa-2x"></i>
+                        <h5>本文</h5>
+                    </div>
+                </td>
+                <td class="right">
+                    <?= $this->formRenderField('featured_image') ?>
+                    <label style="margin: 109px 0 0 15px;width: 40%">
+                        <?= $this->formRenderField('is_slide_show') ?>
+                    </label>
+                    <a href="#" class="color-orange hide">タイトルを入力してください</a>
+                    <?= $this->formRenderField('title') ?>
+
+                    <?= $this->formRenderField('slug') ?>
+
+                    <?= $this->formRenderField('content') ?>
+
+                </td>
+            </tr>
+            <?= $this->formRenderField('has_comment') ?>
+            <?= $this->formRenderField('status') ?>
+        </table>
+    </div>
+    <div class="actions-wrap bot p15">
+        <div class="row">
+            <div class="col-xs-12">アクション</div>
+            <div class="col-sm-4 action-mirror">
+                <?= $this->formRenderField('action') ?>
+            </div>
+            <div class="col-sm-2">
+                <?= $this->formRenderField('toolbar') ?>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-default" onclick="Preview()">プレビュー</a>
+            </div>
+        </div>
+    </div>
+    <?= Form::close() ?>
+</div>
+
+<?php else: ?>
+<div class="control-breadcrumb">
+    <?= Block::placeholder('breadcrumb') ?>
+</div>
+<div class="padded-container">
+    <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+    <p><a href="<?= Backend::url('rainlab/blog/posts') ?>" class="btn btn-default"><?= e(trans('rainlab.blog::lang.post.return_to_posts')) ?></a></p>
+</div>
+<?php endif ?>
+<script>
+    $( document ).ready(function() {
+        $('#Form-field-Post-reviewer_id').change(function () {
+            $('#request-approve').remove();
+
+            if ($(this).val()) {
+                $(this).parent()
+                    .append("<a onclick='requestApprove()' class='btn btn-primary' id='request-approve' style='margin-top: 5px'>申請</a>");
+            }
+        });
+    });
+
+    function requestApprove() {
+        $('#Form-field-Post-toolbar-group').find('a:first').click();
+    }
+
+    $(document).on('change','.action-main select', function(){
+        $('.action-mirror select').val(this.value).change();
+        checkStatus(this.value);
+    });
+
+    var status = $('.action-main select').val();
+    var published_atSelected = $('#DatePicker-formPublishedAt-published_at');
+    var datePublishedSelected = $('input#DatePicker-formPublishedAt-date-published_at');
+    var timePublishedSelected = $('input#DatePicker-formPublishedAt-time-published_at');
+    if(status != 4){
+        published_atSelected.css('display', 'none');
+        datePublishedSelected.attr('disabled','disabled');
+        timePublishedSelected.attr('disabled','disabled');
+    }
+
+    $('#Form-field-Post-slug').val('<?= $this->slug ?>');
+
+    function checkStatus(status) {
+        if(status == 4){
+            published_atSelected.css('display', 'block');
+            datePublishedSelected.removeAttr('disabled');
+            timePublishedSelected.removeAttr('disabled');
+        }else{
+            published_atSelected.css('display', 'none');
+            datePublishedSelected.attr('disabled','disabled');
+            timePublishedSelected.attr('disabled','disabled');
+        }
+    }
+</script>
+<?php else: ?>
+<?= $this->makePartial('permission_denied') ?>
+<?php endif ?>

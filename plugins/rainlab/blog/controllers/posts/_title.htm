@@ -1,0 +1,12 @@
+<div class="col-sm-6 p20t">
+    <div>タイトル</div>
+    <input name="Post[title]"
+           id="Form-field-Post-title"
+           type="text"
+           class="form-control"
+           placeholder="タイトルを入力してください"
+           autocomplete="off"
+           maxlength="255"
+           value='<?php if(isset($vars["formModel"]->attributes["title"])) echo $vars["formModel"]->attributes["title"] ?>'
+    />
+</div>

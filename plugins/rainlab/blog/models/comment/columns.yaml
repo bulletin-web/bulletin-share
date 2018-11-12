@@ -1,0 +1,40 @@
+columns:
+    id:
+        label: #
+        searchable: true
+        sortable: true
+        width: 5%
+
+    name:
+        label: 名前
+        searchable: true
+        sortable: true
+        width: 15%
+
+    email:
+        label: アドレスメール
+        searchable: true
+        sortable: true
+        width: 15%
+
+    content:
+        label: コメント
+        searchable: true
+        sortable: true
+        width: 30%
+
+    url:
+        label: URL
+        searchable: true
+        sortable: true
+        relation: posts
+        select: slug
+        width: 20%
+
+    post_title:
+        label: 記事のタイトル
+        searchable: true
+        sortable: true
+        relation: posts
+        select: title
+        width: 15%

@@ -1,0 +1,12 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    id:
+        label: #
+
+    phrase:
+        label: backend::lang.comment.blacklist_fields.phrase
+        searchable: true

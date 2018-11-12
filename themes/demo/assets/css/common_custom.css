@@ -1,0 +1,349 @@
+/*---------------------------
+RESPONSIVE
+----------------------------*/
+/* override bootstrap */
+.container{width:100%;}
+@media only screen and (min-width: 768px) {
+    .container{width:720px;}
+}
+@media only screen and (min-width: 992px) {
+    .container{width:1080px;}
+}
+@media only screen and (min-width: 1200px) {
+    .container{width:1080px;}
+}
+
+
+/* full clearfix */
+/* add to floating elements which shall clear floating after themselves */ 
+* html .clearfix{
+    height: 1%; /* IE5-6 */
+}
+*+html .clearfix{
+    display: inline-block; /* IE7not8 */
+}
+.clearfix:after{ /* FF, IE8, O, S, etc. */
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clear{
+    clear:both;
+}
+
+/* 共通パーツ - リンク */
+.linkbox{position:relative;}
+html > body .linkbox a{/*IE&除外*/
+    display:block;position:absolute;left:0;top:0;width:100%;height:100%;text-indent:-9999px;
+    background/*\**/: #fff\9; /*IE7,8のみ*/
+    filter: alpha(opacity=0);}
+
+@media only screen and (min-width: 992px) {
+    section.category-list ul.list-item li .card .card-main .card-image {
+        height: 105px;
+    }
+    section.category-list ul.list-item li .card .card-cate {
+        /*top: 106px;*/
+    }
+}
+@media only screen and (min-width: 1200px) {
+    /*section.category-list ul.list-item li .card .card-main .card-image {
+        height: 130px;
+    }
+    section.category-list ul.list-item li .card .card-cate {
+        top: 106px;
+    }*/
+}
+
+
+
+/* 背景色を変更できるようにした場合 */
+/*body{background-color:#fedede;}*/
+#main .container{/*background-color:rgba(248,248,248,1);*/}
+
+/* ------------------------ */
+
+
+/* global navigation */
+.global-category {height: auto;line-height:1;}
+/* display:inline-block と、親要素の間の上の隙間をなくす */
+.global-category {
+    /*font-size:0;*/
+    letter-spacing: -.4em;
+}
+.global-category ul {
+    /*font-size:11px;*/
+    letter-spacing:normal;
+}
+.global-category ul{margin-bottom:0;}/* reset bootstrap */
+
+.global-category ul li.cate-link .line {
+    width: 100%;
+    height: 0px;
+    top: -4px;
+    left: 0;
+    z-index: 0;
+}
+body nav ul li.cate-link a{font-size:12px !important;color:#fff;}/* 11px */
+.global-category ul li.cate-link a {
+    padding: 10px 1.75em 10px;
+}
+.global-category ul li.cate-link:hover a, .global-category ul li.cate-link.active a {
+    color: #fff;
+}
+.global-category ul li.cate-link:hover .line, .global-category ul li.cate-link.active .line {
+    height: 3px;/*opacity: 0.5;*/
+}
+
+
+/* dropdown */
+.global-category .dropdown{/*display:none;*/}
+.global-category .dropdown .dropdown-toggle {
+    width: 30px;
+    /*height: 30px;*/height:24px;
+    margin-top: 0;
+    display: block;
+}
+.global-category .dropdown .dropdown-toggle a{}
+.global-category .dropdown .dropdown-toggle span {
+    width: 3px; height: 3px;
+    background: #fff;
+    border-radius: 10px;
+    display: inline-block;transition: all .3s;top: 13px;
+}
+
+/* main-content */
+.main-content{margin-top:20px;}
+body.post .main-content{margin-top:0;}
+
+
+/* slick */
+@media only screen and (min-width: 768px) {
+    .slick-slide{height:345px;}
+}
+@media only screen and (min-width: 992px) {
+    .slick-slide{height:345px;}
+}
+
+section.top-slider .slider .slick-list{box-shadow:3px 3px 1px 0px #bbb;}
+section.top-slider .slider li a:after {
+    background:none;
+}
+
+section.top-slider .slider 
+
+.slick-dots li button:before
+{
+    /*opacity: .25;*/
+    color: #000;
+}
+.slick-dots li.slick-active button:before
+{
+    /*opacity: .75;*/
+    color: #000;
+}
+
+/* card */
+section.category-list ul.list-item li .card .card-main{padding-bottom:0;}
+section.category-list ul.list-item li .card .card-main .card-image {
+    /*height: 105px;*/
+}
+section.category-list ul.list-item li .card .card-cate {
+    width: 100%;
+    /*height: 20px;*/
+    font: normal 100%/normal Arial, Helvetica, sans-serif;
+    color: black;
+
+    background: #fff;
+    /*-webkit-transform: skewX(30deg);*/
+    /*transform: skewX(30deg);*/
+    /*display: block;
+    line-height: 25px;
+    position: relative;
+    left: -10px;
+    top: 105px;*/
+}
+section.category-list ul.list-item li .card .card-cate .card-tag{background-color:#ddd;color:#666;}
+section.category-list ul.list-item li .card .card-cate div{
+    padding:0 .2em;
+    font-size:10px;line-height:2;overflow:hidden;
+    white-space:nowrap;-o-text-overflow: ellipsis;text-overflow: ellipsis;
+}
+section.category-list ul.list-item li .card .card-body{padding-bottom:3px;text-align:center;}
+section.category-list ul.list-item li .card .card-main .card-date,
+section.category-list ul.list-item li .card .card-main .card-time {
+    display:inline-block;
+    font-size: 9px;
+    color: #515151;
+    float: none;
+    margin-right: 0;
+    line-height:1;
+}
+section.category-list ul.list-item li .card .card-main .card-date{margin-right:1em;}
+
+
+/* sidebar */
+/* 人気記事のアクセス数を隠す */
+.sidebar .post-popular a small{display:none;}
+
+.sidebar{/*background-color:#f8f8f8;*/}
+
+/* トップページ以外 */
+body.archive .main-content .sidebar {margin-top:20px;}
+
+
+/* archive */
+/* filter-box */
+div.filter-block {
+    margin-top:0px;
+    padding: 20px 20px 15px;
+    background-color:#fff;
+    /*box-shadow:3px 3px 1px 0px #aaa;*/
+}
+div.filter-block h3 {
+    font-size: 14px;
+    margin-top: 0;
+}
+div.filter-block p {
+    color: #645D5B;
+    font-size: 14px;
+}
+div.filter-block ul.tag-list:before, div.filter-block ul.tag-list:after {
+    content: "";
+    display: table;
+}
+div.filter-block ul.tag-list:after {
+    clear: both;
+}
+div.filter-block ul.tag-list {
+    zoom: 1;
+}
+div.filter-block ul.tag-list li.tag {
+    float: left;
+    margin-right: 15px;
+    border: 1px transparent solid;
+    transition: all 0.3s;
+    margin-bottom: 5px;
+    border:1px solid #ccc;
+    border-radius:2px;
+    line-height:1;
+}
+div.filter-block ul.tag-list li.tag a {
+    display:inline-block;
+    color: #645D5B;
+    padding: .5em 1em;
+    font-size:10px;
+
+}
+div.filter-block ul.tag-list li.tag.active, div.filter-block ul.tag-list li.tag:hover {
+    /*border: 1px #0089CF solid;*/border: 1px #000 solid;
+}
+div.filter-block ul.tag-list li.tag.active a, div.filter-block ul.tag-list li.tag:hover a {
+    /*color: #0089CF;*/color: #000;
+}
+
+
+/* post */
+body.post .parent-post-main{background-color:#fff;/*border:1px solid #eee;*/}
+.post-main{padding-top:20px;}
+.main-content .post-main .post-extra {width:100%;margin-bottom:1em;}
+.main-content .post-main .post-extra .tag-list{padding-left:0;}
+.main-content .post-main .post-extra .tag-list a.tag {
+    background-color:#fff;color:#666;
+    padding:0 1em;
+    font-size:10px;line-height:2;overflow:hidden;
+    white-space:nowrap;-o-text-overflow: ellipsis;text-overflow: ellipsis;
+}
+.main-content .post-main .post-extra .tag-list .tag {
+    margin-bottom: 3px;
+}
+.main-content .post-main .post-extra .tag-list .tag:hover {
+    opacity: 0.7;
+}
+.main-content .post-main .post-extra .timestamp{text-align:right;padding-right:0;/*margin-right:-15px;*/}
+.main-content .post-main .post-extra .date,
+.main-content .post-main .post-extra .time {
+    font-size: 10px;
+    margin-right: 0px;
+}
+.main-content .post-main .post-extra .date{margin-right:1em;}
+
+div.parent-post-main {
+    background-color:#ffffff;
+}
+
+/* post sidebar */
+body.post .sidebar{padding-top:40px;}
+
+
+/* footer */
+footer{padding-top:4px;}
+footer ul.fLink{text-align:center;}
+footer ul.fLink li a{font-size:11px;}
+
+
+/* --------------------------------- */
+div#main .main-content div.sidebar-block{margin-bottom:30px;}
+div#main .main-content div.sidebar-block ul li{zoom:1;}
+div#main .main-content div.sidebar-block ul li .desc{line-height: 1;}
+.recommend-list{list-style:none;}
+/* side_1 */
+div#main .side_1 li{border-bottom:1px solid #e9e9e9;padding-bottom:.3em;}
+div#main .main-content div.side_1 div.sidebar-block ul li .desc{position:relative;/*height:65px;line-height: 1.5;*/}
+div#main .main-content div.side_1 div.sidebar-block ul li .desc div.extra{/*position:absolute;bottom:0px;right:0px;line-height:1;*/}
+div#main .main-content div.side_1 div.sidebar-block ul li .desc,
+div#main .main-content div.side_1 div.sidebar-block ul li img{/*margin-bottom:.5em;*/}
+div#main .main-content div.side_1 div.sidebar-block ul li .desc p{
+    font-size:14px;
+    height:65px;
+    /*position:relative;*/
+    line-height:1.5;
+    overflow:hidden;
+    margin-bottom:0;
+}
+/*	.main-content div.side_1 div.sidebar-block.post-popular ul.popular-list li .desc p:before,
+	.main-content div.side_1 div.sidebar-block.post-popular ul.popular-list li .desc p:after{
+		position:absolute;
+	}
+	.main-content div.side_1 div.sidebar-block.post-popular ul.popular-list li .desc p:before{
+		content:"...";
+		top:36px;
+		right:0;
+	}
+	.main-content div.side_1 div.sidebar-block.post-popular ul.popular-list li .desc p:after{
+		content:"";
+		height:100%;
+		width:100%;
+	}*/
+div#main .main-content div.side_1 div.sidebar-block ul li div.extra{
+    /*clear:both;text-align:right;*/
+    line-height:1;margin-bottom:-0.05em;text-align:right;
+}
+
+div#main .main-content div.side_1 div.sidebar-block ul li div.extra small{
+    display:inline-block;position:relative;
+    left:auto;padding:0;/**/background:none;width:auto !important;height:auto !important;
+    color:#333;font-weight:normal;font-size:10px;
+}
+div#main .main-content div.side_1 div.sidebar-block ul li div.extra small i{font-size:10px;color:#999;}
+div#main .main-content div.side_1 div.sidebar-block ul li div.extra small span{display:inline-block;margin-right:1em;}
+div#main .main-content div.side_1 div.sidebar-block ul li div.extra small span i{margin-right:.5em;}
+
+
+/* side_2 */
+div#main .side_2 .sidebar-block{background-color:#fff;padding:12px;box-shadow:3px 3px 1px 0px #bbb;}
+div#main .side_2 .sidebar-block h3{background-color: #000;color:#fff;padding:6px;/*margin:12px;*//*margin-top:-6px;*/margin-bottom:9px;}
+div#main .side_2 .sidebar-block ul{/*padding:12px;*/}
+div#main .side_2 li{border-bottom:1px solid #ddd;/*padding-bottom:9px;*/}
+
+div#main .main-content div.side_2 div.sidebar-block ul li .desc small{
+    display:inline-block;position:relative;
+    left:auto;padding:0;/**/background:none;width:auto !important;height:auto !important;
+    color:#333;font-weight:normal;font-size:11px;
+}
+div#main .main-content div.side_2 div.sidebar-block ul li .desc small i{font-size:11px;color:#999;}
+div#main .main-content div.side_2 div.sidebar-block ul li .desc small span{display:inline-block;margin-right:1em;}
+div#main .main-content div.side_2 div.sidebar-block ul li .desc small span i{margin-right:.5em;}

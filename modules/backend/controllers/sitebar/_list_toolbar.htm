@@ -1,0 +1,37 @@
+<form action="/backend/backend/sitebar/setType" method="get">
+<div class="col-sm-4">
+    <div class="form-group">
+        <select id="sitebar_type" name="sitebar_type" class="form-control">
+            <option value="0">- - - サイドバーウィジット名 - - -</option>
+            <option value="1">投稿リスト</option>
+            <option value="2">アクセスランキング</option>
+            <option value="3">バナー</option>
+        </select>
+    </div>
+</div>
+<div class="col-sm-5">
+    <div data-control="toolbar">
+        <button id="create_site_bar" type="submit" class="btn btn-primary oc-icon-plus">
+            <?= e(trans('backend::lang.workflow.create')) ?>
+        </button>
+    </div>
+</div>
+</form>
+<script>
+    var sitebar_type;
+
+    checkCreate();
+
+    $('#sitebar_type').on('change', function () {
+        checkCreate();
+    });
+
+    function checkCreate() {
+        sitebar_type = $('#sitebar_type').val();
+        if (sitebar_type == 0) {
+            $('#create_site_bar').attr('disabled', 'disabled');
+        } else {
+            $('#create_site_bar').removeAttr('disabled');
+        }
+    }
+</script>

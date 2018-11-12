@@ -1,0 +1,54 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    title:
+        label: rainlab.blog::lang.post.title
+        searchable: true
+        width: 19%
+
+    author:
+        label: rainlab.blog::lang.post.author
+        relation: user
+        select: concat(first_name, ' ', last_name)
+        searchable: true
+        width: 10%
+
+    categories:
+        label: rainlab.blog::lang.post.categories
+        relation: categories
+        select: name
+        searchable: true
+        width: 10%
+
+    is_parent:
+        label: rainlab.blog::lang.post.tag
+        searchable: false
+        sortable: false
+        type: partial
+        path: ~/plugins/rainlab/blog/models/post/_parent_tag_column.htm
+        width: 18%
+
+    is_page:
+        label: rainlab.blog::lang.page.title
+        searchable: false
+        type: partial
+        path: ~/plugins/rainlab/blog/models/post/_is_page.htm
+        width: 10%
+
+    published_at:
+          label: rainlab.blog::lang.post.published_on
+          type: date
+          width: 10%
+
+    updated_at:
+        label: rainlab.blog::lang.post.updated
+        type: date
+        width: 10%
+
+    statuses:
+        label: rainlab.blog::lang.post.status
+        width: 5%
+        select: status

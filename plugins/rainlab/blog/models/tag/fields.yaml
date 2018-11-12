@@ -1,0 +1,35 @@
+fields:
+
+    name:
+        label: rainlab.blog::lang.tag.name
+        type: text
+        placeholder: rainlab.blog::lang.tag.placeholder_name
+
+    slug:
+        label: rainlab.blog::lang.tag.slug
+        type: text
+        slug: name
+        preset: name
+        placeholder: rainlab.blog::lang.tag.placeholder_slug
+
+    is_parent:
+        label: rainlab.blog::lang.tag.parent_check
+        type: checkbox
+
+    parent_relation:
+        label: rainlab.blog::lang.tag.parent_tag
+        type: partial
+        path: ~/plugins/rainlab/blog/models/tag/_parent_relation.htm
+
+    update_parent_relation:
+        label: rainlab.blog::lang.tag.parent_tag
+        type: partial
+        path: ~/plugins/rainlab/blog/models/tag/_update_parent_relation.htm
+
+    description:
+        label: rainlab.blog::lang.tag.description
+        type: textarea
+
+    tag_color:
+        label: rainlab.blog::lang.category.color
+        type: colorpicker

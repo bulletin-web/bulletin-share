@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: タグ
+form: ~/plugins/rainlab/blog/models/tag/fields.yaml
+modelClass: RainLab\Blog\Models\Tag
+defaultRedirect: rainlab/blog/tag
+
+create:
+    redirect: rainlab/blog/tag/update/:id
+    redirectClose: rainlab/blog/tag
+
+update:
+    redirect: rainlab/blog/tag
+    redirectClose: rainlab/blog/tag

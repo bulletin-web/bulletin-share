@@ -1,0 +1,5 @@
+<?php if($parentTag = $this->getParentTagList($record->id)): ?>
+<?php foreach($parentTag as $tag): ?>
+<?= $tag->name ?>,
+<?php endforeach ?>
+<?php endif ?>

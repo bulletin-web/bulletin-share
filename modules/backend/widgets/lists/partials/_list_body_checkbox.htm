@@ -1,0 +1,13 @@
+<td class="list-checkbox nolink">
+    <div class="checkbox custom-checkbox nolabel">
+        <input
+            <?php if(isset($record->active) && $record->active != false): ?>
+            checked
+            <?php endif ?>
+            type="checkbox"
+            name="checked[]"
+            id="<?= $this->getId('checkbox-' . $record->getKey()) ?>"
+            value="<?= $record->getKey() ?>" />
+        <label for="<?= $this->getId('checkbox-' . $record->getKey()) ?>"><?= e(trans('backend::lang.list.check')) ?></label>
+    </div>
+</td>

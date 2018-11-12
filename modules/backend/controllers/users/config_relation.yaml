@@ -1,0 +1,10 @@
+member_family:
+    label: メンバー家族
+    view:
+        list: ~/modules/backend/models/memberfamily/columns.yaml
+        toolbarButtons: create|delete
+    manage:
+        showSearch: true
+        recordsPerPage: 6
+        list: ~/modules/backend/models/memberfamily/columns.yaml
+        form: ~/modules/backend/models/memberfamily/fields.yaml

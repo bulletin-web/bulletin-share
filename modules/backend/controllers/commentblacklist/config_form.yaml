@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: backend::lang.comment.blacklist
+form: ~/modules/backend/models/commentblacklist/fields.yaml
+modelClass: Backend\Models\CommentBlackList
+defaultRedirect: backend/commentblacklist
+
+create:
+    redirect: backend/commentblacklist/update/:id
+    redirectClose: backend/commentblacklist
+
+update:
+    redirect: backend/commentblacklist
+    redirectClose: backend/commentblacklist

@@ -1,0 +1,40 @@
+<div class="singin-logo">
+    <img class="img-responsive" src="<?= isset($this->setting) && $this->setting->logo ? $this->setting->logo : Url::to('modules/backend/assets/images/new-logo.png') ?>" alt="">
+</div>
+<?= Form::open() ?>
+<input type="hidden" name="postback" value="1" />
+
+<div class="form-elements" role="form">
+    <!-- Login -->
+    <div class="form-group">
+        <label class="control-label">ユーザーID</label>
+        <input
+                type="text"
+                name="email"
+                value="<?= e(post('email')) ?>"
+                class="form-control icon user"
+                autocomplete="off"
+                maxlength="255" />
+    </div>
+    <!-- Password -->
+    <div class="form-group">
+        <label class="control-label">パスワード</label>
+        <input
+                type="password"
+                name="password"
+                value=""
+                class="form-control icon lock"
+                autocomplete="off"
+                maxlength="255" />
+    </div>
+    <!-- Submit Login -->
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary login-button btn-full-width">
+            ログイン
+        </button>
+    </div>
+
+</div>
+<?= Form::close() ?>
+
+<?= $this->fireViewEvent('backend.auth.extendSigninView') ?>

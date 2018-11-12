@@ -1,0 +1,230 @@
+<?php if (!$this->fatalError): ?>
+<style>
+    .new-create-view #Form-field-Post-title-group .col-sm-6,
+    .new-create-view #Form-field-Post-slug-group .col-sm-6,
+    .new-create-view #Form-field-Post-action-group {
+        width: 100%;
+        padding: 0;
+    }
+
+    .new-create-view #Form-field-Post-has_comment-group,
+    .new-create-view #Form-field-Post-published_at-group,
+    .new-create-view #Form-field-Post-toolbar-group {
+        padding-bottom: 0;
+    }
+
+    .new-create-view #Form-field-Post-action .col-sm-3 {
+        margin-top: 10px;
+    }
+
+    .new-create-view .actions-wrap.top,
+    .new-create-view .actions-wrap.top .loading-indicator {
+        top: -10px !important;
+        padding-bottom: 9px;
+    }
+</style>
+<div class="new-create-view">
+    <!-- Modal -->
+    <div class="modal" id="linkPreview" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">校正URLを発行</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" value="<?= url('blog/post/preview') . '/' . $formModel->id ?>" type="text">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">キャンセル</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?= Form::open([
+        'class' => 'layout',
+        'data-change-monitor' => 'true',
+        'data-window-close-confirm' => e(trans('rainlab.blog::lang.post.close_confirm')),
+        'id' => 'post-form',
+        'files' => true,
+    ]) ?>
+    <div class="actions-wrap top p15">
+        <div class="row">
+            <div class="col-xs-12">アクション</div>
+            <div class="col-sm-3 action-main">
+                <?= $this->formRenderField('action') ?>
+            </div>
+            <div class="col-sm-9 clearfix">
+                <?= $this->formRenderField('toolbar') ?>
+                <div class="btn-margin-left-wrap">
+                    <a class="btn btn-default m7r" onclick="Preview()">プレビュー</a>
+                    <a class="btn btn-default m7r" data-toggle="modal" data-target="#linkPreview">校正URLを発行</a>
+                </div>
+                <button class="btn pull-right" disabled="disabled">
+                    <?=$vars["formModel"]->getStatusesAttribute(); ?>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <?= $this->makePartial('workflow_id') ?>
+            <?= $this->makePartial('category_id') ?>
+            <?= $this->formRenderField('tags') ?>
+            <tr>
+                <td class="left">
+                    <div class="text-center">
+                        <i class="fas fa-table fa-2x"></i>
+                        <h5>本文</h5>
+                    </div>
+                </td>
+                <td class="right">
+                    <?= $this->formRenderField('featured_image') ?>
+                    <label style="margin: 109px 0 0 15px;width: 40%">
+                        <?= $this->formRenderField('is_slide_show') ?>
+                    </label>
+                    <a href="#" class="color-orange hide">タイトルを入力してください</a>
+                    <?= $this->formRenderField('title') ?>
+
+                    <?= $this->formRenderField('slug') ?>
+
+                    <?= $this->formRenderField('content') ?>
+
+                </td>
+            </tr>
+            <?= $this->formRenderField('has_comment') ?>
+            <?= $this->formRenderField('published_at') ?>
+            <?= $this->formRenderField('status') ?>
+        </table>
+    </div>
+    <div class="actions-wrap bot p15">
+        <div class="row">
+            <div class="col-xs-12">アクション</div>
+            <div class="col-sm-3 action-mirror">
+                <?= $this->formRenderField('action') ?>
+            </div>
+            <div class="col-sm-4">
+                <?= $this->formRenderField('toolbar') ?>
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-default" onclick="Preview()">プレビュー</a>
+            </div>
+        </div>
+    </div>
+    <?= Form::close() ?>
+
+</div>
+<?php if($this->postOfMine == 1): ?>
+    <?php if(!$this->user->hasAccess('backend.blog.edit_post_of_mine')): ?>
+        <?= $this->makePartial('disabled_input') ?>
+    <?php endif ?>
+<?php else: ?>
+    <?php if(!$this->user->hasAccess('backend.blog.others.edit_post_others')): ?>
+        <?= $this->makePartial('disabled_input') ?>
+    <?php endif ?>
+<?php endif ?>
+<?php else: ?>
+    <div class="control-breadcrumb">
+        <?= Block::placeholder('breadcrumb') ?>
+    </div>
+    <div class="padded-container">
+        <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+        <p><a href="<?= Backend::url('rainlab/blog/posts') ?>" class="btn btn-default"><?= e(trans('rainlab.blog::lang.post.return_to_posts')) ?></a></p>
+    </div>
+
+<?php endif ?>
+<script>
+    $( document ).ready(function() {
+        $('#Form-field-Post-reviewer_id').change(function () {
+            $('#request-approve').remove();
+
+            if ($(this).val()) {
+                $(this).parent()
+                    .append("<a onclick='requestApprove()' class='btn btn-primary' id='request-approve' style='margin-top: 5px'>申請</a>");
+            }
+        });
+
+        var status = $('#select2-Form-field-Post-status-container').text();
+        $('.nav-tabs').append('<li class="status">'+ status +'</li>');
+         var url = $(location).attr('href');
+        var parts = url.split("/");
+        var last_part = parts[parts.length-1];
+        if(last_part == '#secondarytab-3'){
+            $('a[href="#secondarytab-3"]').click();
+        }
+    });
+
+    function requestApprove() {
+        $('#Form-field-Post-toolbar-group').find('a:first').click();
+    }
+
+    $(document).on('change','.action-main select', function(){
+        $('.action-mirror select').val(this.value).change();
+        checkStatus(this.value);
+    });
+
+    var action = $('select#Form-field-Post-action').val();
+    var published_atSelected = $('#DatePicker-formPublishedAt-published_at');
+    var datePublishedSelected = $('input#DatePicker-formPublishedAt-date-published_at');
+    var timePublishedSelected = $('input#DatePicker-formPublishedAt-time-published_at');
+    if(action != 4){
+        published_atSelected.css('display', 'none');
+        datePublishedSelected.attr('disabled','disabled');
+        timePublishedSelected.attr('disabled','disabled');
+    }
+
+    $(document).on('click', '.btn-update-save', function (){
+        var id_button = $(this).attr('id');
+        var post_content_jsonDB = decodeEntities(content_json);
+        var post_content_json = decodeEntities($("#post-content-json").val());
+        var actionAllow = [1, 5];
+        action = parseInt(action);
+        if(actionAllow.indexOf(action) > -1){
+            clickSave(id_button);
+        }else{
+             if(post_content_jsonDB.localeCompare(post_content_json) == 0){
+                clickSave(id_button);
+
+             }else{
+                $('#myModal').modal('toggle');
+             }
+        }
+
+    });
+    $(document).on('click', '.btn-ok.btn-ok-modal', function(){
+        $( "#update-save" ).click();
+    });
+    function decodeEntities(encodedString) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = encodedString;
+        return textArea.value;
+    }
+    function clickSave(id) {
+        if (id == 'save-update') {
+            $( "#update-save" ).click();
+        }
+        if (id == 'save-close') {
+            $( "#update-save-close" ).click();
+        }
+    }
+    function reload_page() {
+        setTimeout(function() {
+            window.location.reload();
+        }, 2000);
+    }
+
+    function checkStatus(status) {
+        if(status == 4){
+            published_atSelected.css('display', 'block');
+            datePublishedSelected.removeAttr('disabled');
+            timePublishedSelected.removeAttr('disabled');
+        }else{
+            published_atSelected.css('display', 'none');
+            datePublishedSelected.attr('disabled','disabled');
+            timePublishedSelected.attr('disabled','disabled');
+        }
+    }
+</script>

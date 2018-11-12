@@ -1,0 +1,84 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+
+tabs:
+  defaultTab: 'ユーザー情報'
+  fields:
+      first_name:
+          span: right
+          label: backend::lang.user.first_name
+          placeholder: backend::lang.user.first_name
+
+      last_name:
+          span: left
+          label: backend::lang.user.last_name
+          placeholder: backend::lang.user.last_name
+
+      gender:
+          span: left
+          label: backend::lang.user.gender
+          type: dropdown
+          placeholder: -- 選択 --
+          showSearch: false
+
+      role:
+          context: [create, update]
+          label: backend::lang.user.role_field
+          type: dropdown
+          span: right
+          placeholder: -- 選択 --
+          showSearch: false
+
+      email:
+          span: full
+          label: backend::lang.user.email
+
+      password:
+          type: password
+          span: left
+          label: backend::lang.user.password
+
+      password_confirmation:
+          type: password
+          span: right
+          label: backend::lang.user.password_confirmation
+
+      groups:
+          label: backend::lang.user.groups
+          type: checkboxlist
+
+      position:
+          span: left
+          label: backend::lang.user.position
+
+      birthday:
+          label: backend::lang.user.birthday
+          span: right
+          type: datepicker
+          mode: date
+          minDate: "1900-01-01"
+          maxDate: "2030-01-01"
+          yearRange: "100"
+          firstDay: "1"
+
+      hobby:
+          label: backend::lang.user.hobby
+          type: textarea
+
+      member_family:
+          commentAbove: 'ご家族に関する情報'
+          type: partial
+          path: field_member_family
+#          tab: 'ご家族に関する情報'
+
+secondaryTabs:
+    fields:
+        avatar:
+            label: backend::lang.user.avatar
+            type: fileupload
+            mode: image
+            imageHeight: 250
+            imageWidth: 250
+

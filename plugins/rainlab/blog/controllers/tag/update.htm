@@ -1,0 +1,63 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><a href="<?= Backend::url('rainlab/blog/tag') ?>"><?= e(trans('system::lang.system.categories.contents')) ?></a></li>
+    <li><?= e(trans($this->pageTitle)) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+<?= Form::open(['class'=>'layout']) ?>
+
+<div class="col-lg-9">
+    <div class="layout-row">
+        <div class="col-lg-4">
+            <?= $this->formRenderField('name') ?>
+        </div>
+        <div class="col-lg-4">
+            <?= $this->formRenderField('slug') ?>
+        </div>
+        <div class="col-lg-6">
+            <?= $this->formRenderField('description') ?>
+        </div>
+        <div class="col-lg-6"><br/>
+            <?= $this->formRenderField('tag_color') ?>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button
+                        type="button"
+                        data-request="onSave"
+                        data-request-data="close:1"
+                        data-hotkey="ctrl+s, cmd+s"
+                        data-load-indicator="<?= e(trans('backend::lang.form.creating')) ?>"
+                        class="btn btn-primary">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<?= e(trans('backend::lang.form.create')) ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                </button>
+                <button
+                        type="reset"
+                        class="btn btn-primary">
+                    <?= e(trans('backend::lang.form.cancel')) ?>
+                </button>
+                <button style="background: #c82a1c"
+                        type="button"
+                        class="btn btn-danger pull-right"
+                        data-request="onDelete"
+                        data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                        data-request-confirm="<?= e(trans('rainlab.blog::lang.tag.delete_confirm')) ?>">
+                    <?= e(trans('backend::lang.form.delete')) ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?= Form::close() ?>
+
+<?php else: ?>
+<p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+<p><a href="<?= Backend::url('backend/usergroups') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.group.return')) ?></a></p>
+<?php endif ?>

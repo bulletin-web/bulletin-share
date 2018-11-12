@@ -1,0 +1,15 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: backend::lang.workflow.title
+list: ~/modules/backend/models/workflow/columns.yaml
+modelClass: Backend\Models\WorkFlow
+recordUrl: backend/workflow/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 20
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

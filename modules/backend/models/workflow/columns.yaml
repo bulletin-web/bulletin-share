@@ -1,0 +1,17 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    name:
+        label: backend::lang.workflow.name
+        searchable: true
+        sortable: true
+        width: 50%
+
+    description:
+        label: backend::lang.user.group.description_field
+        searchable: true
+        sortable: true
+        width: 50%

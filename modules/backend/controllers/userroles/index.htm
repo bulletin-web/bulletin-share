@@ -1,0 +1,8 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><?= e(trans('backend::lang.user.menu_label')) ?></li>
+        <li><?= e(trans('backend::lang.user.role.menu_label')) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?= $this->listRender() ?>

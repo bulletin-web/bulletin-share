@@ -1,0 +1,18 @@
+{% if demoSettings.infoSetting.accept_facebook or demoSettings.infoSetting.accept_twitter %}
+<div class="social-block">
+	{% if demoSettings.infoSetting.accept_facebook %}
+		<div class="fb-share-button" data-href="{{ url('/blog/post/') }}/{{ post.slug }}" data-layout="button" data-size="large" data-mobile_iframe="true">
+			<a class="fb-xfbml-parse-ignore"
+			   target="_blank"
+			   href="https://www.facebook.com/sharer/sharer.php?u={{ url('/blog/post/') }}/{{ post.slug }}&amp;src=sdkpreparse">Share Facebook</a>
+		</div>
+	{% endif %}
+	{% if demoSettings.infoSetting.accept_twitter %}
+		<a href="{{ url('/blog/post/') }}/{{ post.slug }}"
+		   class="twitter-share-button"
+		   data-size="large"
+		   data-show-count="false">Tweet</a>
+		<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	{% endif %}
+</div>
+{% endif %}

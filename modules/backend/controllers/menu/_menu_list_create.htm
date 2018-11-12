@@ -1,0 +1,51 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <td width="10%"><input class="checkbox-all checkbox-css" type="checkbox"></td>
+        <td width="40%">カテゴリ／タグ／固定ページ名</td>
+        <td width="40%">種類</td>
+        <td width="10%">順番</td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php if ($this->listCategory): ?>
+        <?php foreach($this->listCategory as $category): ?>
+        <tr>
+            <td class="td"><input class="checkbox-custom checkbox-css" type="checkbox"></td>
+            <td class="td"><?= $category->name ?></td>
+            <td class="td"><?= app('content.menu')->getMenuType('category') ?></td>
+            <td><input name="Menu[category][<?= $category->id ?>]" class="form-control location" disabled maxlength="3"></td>
+        </tr>
+        <?php endforeach ?>
+    <?php endif ?>
+    <?php if ($this->listTag): ?>
+        <?php foreach($this->listTag as $tag): ?>
+        <tr>
+            <td class="td"><input class="checkbox-custom checkbox-css" type="checkbox"></td>
+            <td class="td"><?= $tag->name ?></td>
+            <td class="td"><?= app('content.menu')->getMenuType('tag') ?></td>
+            <td><input name="Menu[tag][<?= $tag->id ?>]" class="form-control location" disabled maxlength="3"></td>
+        </tr>
+        <?php endforeach ?>
+    <?php endif ?>
+    <?php if($this->listPage) : ?>
+        <?php foreach($this->listPage as $page): ?>
+        <tr>
+            <td class="td"><input class="checkbox-custom checkbox-css" type="checkbox"></td>
+            <td class="td"><?= $page->title ?></td>
+            <td class="td"><?= app('content.menu')->getMenuType('page') ?></td>
+            <td><input name="Menu[page][<?= $page->id ?>]" class="form-control location" disabled maxlength="3"></td>
+        </tr>
+        <?php endforeach ?>
+    <?php endif ?>
+    </tbody>
+</table>
+
+<?= $this->makePartial('js_menu_list') ?>
+
+
+
+
+
+
+

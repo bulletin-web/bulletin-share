@@ -1,0 +1,23 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    full_name:
+        label: backend::lang.user.full_name
+        select: concat(last_name, ' ', first_name)
+        searchable: true
+
+    genders:
+        label: backend::lang.user.gender
+        sortable: false
+
+    relationships:
+        label: backend::lang.user.relationship
+        sortable: false
+
+    birthday:
+        label: backend::lang.user.birthday
+        type: date
+        sortable: false

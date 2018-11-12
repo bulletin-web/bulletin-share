@@ -1,0 +1,74 @@
+{% set numberLink = 3 %}
+
+<div class="text-center">
+	{% if posts.lastPage > 1 %}
+	<ul class="pager">
+		{% if posts.currentPage > 1 %}
+		<li class="previous"><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage - 1) }) }}"><span aria-hidden="true">&larr;</span> 前へ</a></li>
+		{% else %}
+		<li class="previous"><span aria-hidden="true">&nbsp;</span></li>
+		{% endif %}
+
+		<li class="page"><span>{{ posts.currentPage }}/{{ posts.lastPage }}</span></li>
+
+		{% if posts.currentPage < posts.lastPage %}
+		<li class="next"><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage + 1) }) }}">次へ <span aria-hidden="true">&rarr;</span></a></li>
+		{% else %}
+		<li class="next"><span aria-hidden="true">&nbsp;</span></li>
+		{% endif %}
+	</ul>
+
+	<ul class="pagination">
+		{% if posts.currentPage > 1 %}
+		<li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage-1) }) }}"><span aria-hidden="true">&laquo;</span></a></li>
+		{% endif %}
+
+		{% if posts.currentPage - numberLink > 2 %}
+		<li>
+			<a href="{{ this.page.baseFileName|page({ (pageParam): 1 }) }}">1</a>
+		</li>
+
+		<li class="extend"><span>...</span></li>
+		{% for page in (posts.currentPage - numberLink)..(posts.currentPage - 1) %}
+		<li>
+			<a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+		</li>
+		{% endfor %}
+		{% else %}
+		{% if posts.currentPage != 1 %}
+		{% for page in 1..(posts.currentPage - 1) %}
+		<li>
+			<a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+		</li>
+		{% endfor %}
+		{% endif %}
+		{% endif %}
+
+		<li class="active"><span>{{ posts.currentPage }}</span></li>
+
+		{% if (posts.currentPage + 1) < (posts.lastPage - numberLink) %}
+		{% for page in (posts.currentPage + 1)..(posts.currentPage + numberLink) %}
+		<li>
+			<a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+		</li>
+		{% endfor %}
+		<li class="extend"><span>...</span></li>
+		<li>
+			<a href="{{ this.page.baseFileName|page({ (pageParam): posts.lastPage }) }}">{{ posts.lastPage }}</a>
+		</li>
+		{% else  %}
+		{% if posts.currentPage != posts.lastPage %}
+		{% for page in (posts.currentPage + 1)..posts.lastPage %}
+		<li>
+			<a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+		</li>
+		{% endfor %}
+		{% endif %}
+		{% endif %}
+
+		{% if posts.lastPage > posts.currentPage %}
+		<li><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage + 1) }) }}"><span aria-hidden="true">&raquo;</span></a></li>
+		{% endif %}
+	</ul>
+	{% endif %}
+</div>

@@ -1,0 +1,5 @@
+<?php if(Session::get('success')): ?>
+<p data-control="flash-message" data-interval="5" class="success">
+    <?=Session::get('success') ?>
+</p>
+<?php endif ?>

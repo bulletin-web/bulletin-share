@@ -1,0 +1,31 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    name:
+        label: backend::lang.sitebar.title
+        searchable: true
+        sortable: false
+        width: 30%
+
+    type:
+        label: backend::lang.sitebar.type
+        sortable: false
+        width: 20%
+        type: partial
+        path: ~/modules/backend/models/sitebar/type_bar.htm
+
+    location:
+        label: backend::lang.sitebar.location
+        width: 10%
+        sortable: false
+        type: partial
+        path: ~/modules/backend/models/sitebar/location.htm
+        click: false
+
+    description:
+        label: backend::lang.sitebar.description
+        width: 40%
+        sortable: false

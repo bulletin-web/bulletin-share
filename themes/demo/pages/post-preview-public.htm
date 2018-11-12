@@ -1,0 +1,128 @@
+url = "/blog/post/preview/:id"
+layout = "blog-layout"
+[blogPost]
+[blogMenu]
+==
+function onEnd() {
+    $this['hasPreview'] = true;
+    if ($this->preview) {
+        $this->page->title = $this->preview->title;
+        $this['hasPreview'] = true;
+} else {
+    return Redirect::to('404');
+}
+}
+==
+<div style="min-height: 69%" id="main">
+    <div class="container"  style="padding-top: 0px">
+        <div class="main-content row"  style="margin-top: 0px">
+            <div class="col-sm-8 parent-post-main">
+                <div class="post-main">
+                    <h3 class="title">{{ preview.title }}</h3>
+                    <div class="post-extra">
+                        {% set parentTag = blogMenu.getParentTag(preview.id) %}
+                        {% set childrenTag = blogMenu.getChildrenTag(preview.id) %}
+                        <div class="tag-list col-md-8">
+                            {% if parentTag %}
+                            {% for tag in parentTag %}
+                            {% if blogMenu.getMenuLink('tag', tag) %}
+                            <a data-color="{{ blogMenu.getMenuColor('tag', tag) }}" href="javascript:;" class="tag btn btn-default btn_tag">{{ blogMenu.getMenuName('tag', tag) }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% if childrenTag %}
+                            {% for tag in childrenTag %}
+                            {% if blogMenu.getMenuLink('tag', tag) %}
+                            <a href="javascript:;" class="tag btn btn-default"
+                               style="background-color: {{ blogMenu.getMenuColor('tag', tag) }};">
+                                {{ blogMenu.getMenuName('tag', tag) }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4 timestamp">
+                            <span class="date"><i class="ico-calendar-full"></i> {{ "now"|date("Y.m.d") }}</span>
+                            <span class="time"><i class="ico-clock2"></i> {{ "now"|date("H.i") }}</span>
+                        </div>
+                    </div>
+                    <img src="{{ preview.featured_image.path }}"
+                         alt="">
+
+                    {% partial 'site/social' post=preview %}
+
+                    <div class="clearfix"></div>
+
+                    <div class="post-content fr-view"><p>
+                        {{ preview.content_html|raw }}
+                    </div>
+
+                    <div class="pull-left">
+                        <a class="back-btn">バック</a>
+                    </div>
+                    {% partial 'site/social' post=preview %}
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <fieldset>
+                            <div class="form-group">
+                                <input readonly class="form-control" placeholder="名前" type="text" maxlength="64">
+                            </div>
+                            <div class="form-group">
+                                <input readonly class="form-control" placeholder="電子メール" type="text" maxlength="64">
+                            </div>
+                            <div class="form-group">
+                                <textarea readonly class="form-control" placeholder="内容" rows="5"></textarea>
+                            </div>
+                        </fieldset>
+                        <button disabled class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp;&nbsp;保存&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        <button disabled type="reset" class="btn btn-default">リセット</button>
+                    </div>
+                </div>
+                <div style="padding: 25px;"></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="sidebar side_2" style="padding-top: 40px">
+
+                    {% if siteBar.count %}
+                    {% for bar in siteBar %}
+                    <div class="sidebar-block post-popular" {% if bar.type == 3 %} style="padding: 0px !important; box-shadow: 0px 0px 0px 0px #bbb !important;" {% endif %}>
+                        {% if bar.type != 3 %}
+                        <h3 class="sidebar-title" style="color:#ffffff;">{{ bar.name }}</h3>
+                        {% endif %}
+                        <!--if bar is banner-->
+                        {% if bar.type == 3 %}
+                        <a href="javascript:;">
+                            <img class="img-responsive" src="{{ bar.banner_image.path }}" alt="">
+                        </a>
+                        <!--if bar is banner-->
+                        {% else %}
+                        {% set posts = blogPosts.getSiteBar(bar.content_type, bar.type) %}
+                        {% if posts.count %}
+                        <ul class="popular-list">
+                            {% for post in posts %}
+                            <li>
+                                <a href="javascript:;">
+                                    <img src="{{ post.featured_image.path }}" alt="">
+                                    <div class="desc">
+                                        <p style="word-break: normal">{{ str_limit(post.title, 40) }}</p>
+                                        <small>
+                                            <span class="date"><i class="ico-calendar-31"></i>{{ post.published_at|date('Y.m.d') }}</span>
+                                            {% if post.count_view %}
+                                            <span class=""><i class="ico-graph"></i>{{ post.count_view }}</span>
+                                            {% endif %}
+                                        </small>
+                                    </div>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>

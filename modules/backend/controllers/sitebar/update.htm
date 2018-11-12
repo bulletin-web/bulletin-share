@@ -1,0 +1,64 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><?= e(trans('system::lang.system.categories.plugin_manager')) ?></li>
+    <li><?= e(trans('サイドバーウィジット管理')) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+<?= Form::open(['class'=>'layout']) ?>
+
+<div id="body-sitebar" class="col-md-8">
+    <div class="layout-row">
+        <?php if($this->post->type == 1): ?>
+        <h4><b>投稿リスト</b></h4><br>
+        <?php endif ?>
+        <?php if($this->post->type == 2): ?>
+        <h4><b>アクセスランキング</b></h4><br>
+        <?php endif ?>
+        <?php if($this->post->type == 3): ?>
+        <h4><b>バナー</b></h4><br>
+        <?php endif ?>
+        <?= $this->formRender() ?>
+    </div>
+
+    <input type="hidden" name="SiteBar[type]" value="<?= $this->post->type ?>">
+
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <?php if($this->user->hasAccess('backend.role.edit_role') && $this->superRole == 0): ?>
+            <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+enter, cmd+enter"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-primary">
+                <?= e(trans('backend::lang.form.create')) ?>
+            </button>
+            <button
+                    type="reset"
+                    class="btn btn-primary">
+                <?= e(trans('backend::lang.form.cancel')) ?>
+            </button>
+            <?php endif ?>
+            <?php if($this->user->hasAccess('backend.role.delete_role') && $this->superRole == 0): ?>
+            <button style="background: #c82a1c"
+                    type="button"
+                    class="btn btn-danger pull-right"
+                    data-request="onDelete"
+                    data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('backend::lang.sitebar.delete_confirm')) ?>">
+                <?= e(trans('backend::lang.form.delete')) ?>
+            </button>
+            <?php endif ?>
+        </div>
+    </div>
+</div>
+<?= Form::close() ?>
+
+<?php else: ?>
+<p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+<p><a href="<?= Backend::url('backend/userroles') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.role.return')) ?></a></p>
+<?php endif ?>

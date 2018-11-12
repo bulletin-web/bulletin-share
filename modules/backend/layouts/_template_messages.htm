@@ -1,0 +1,17 @@
+<?php if(Session::get('errors')) { ?>
+    <div class="flash-message message-custom alert-error">
+        <ul>
+            <?php foreach(Session::get('errors')->all() as $error) { ?>
+                <li><?php echo $error; ?></li>
+            <?php } ?>
+        </ul>
+    </div>
+<?php } elseif(Session::get('success')) { ?>
+    <div class="flash-message message-custom alert-success">
+        <?php echo Session::get('success'); ?>
+    </div>
+<?php } elseif(Session::get('error')) {?>
+    <div class="flash-message message-custom alert-error">
+        <?php echo Session::get('error'); ?>
+    </div>
+<?php } ?>

@@ -1,0 +1,10 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <p>この記事の却下理由： <?php echo $this->data->reviewer_comment; ?></p>
+            <p>
+                <a href="<?= Backend::url('rainlab/blog/posts/update/'.$this->data->id) ?>">こちらで記事を修正してください。</a>
+            </p>
+        </div>
+    </div>
+</div>

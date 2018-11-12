@@ -1,0 +1,37 @@
+<tr>
+    <td class="left">
+        <div class="text-center">
+            <i class="fas fa-tag fa-2x"></i>
+            <h5>タグ</h5>
+        </div>
+    </td>
+    <td class="right">
+        <div class="row">
+            <div class="col-sm-4 p8t">投稿を関連付けるタグを選択してください。</div>
+            <div class="col-sm-8">
+                <a class="btn btn-primary" href="/backend/rainlab/blog/tag/create" target="_blank"><i class="fas fa-plus"></i> 新規作成</a>
+            </div>
+            <div class="col-xs-12 p20t" id="parentTagDisplay">
+                <?php if ($this->listParentTag): ?>
+                <?php foreach($this->listParentTag as $tag): ?>
+                <span data-id="<?= $tag->id ?>"
+                    style="margin-bottom: 5px;
+                    margin-right: 5px;
+                    border: 1px solid <?= $tag->tag_color ?>;
+                    color: #000000;
+                    background: #c8c8c8;
+                    font-size: 11px;
+                    white-space: normal;"
+                    class="btn btn-default" data-color="<?= $tag->tag_color ?>"><?= $tag->name ?></span>
+                <?php endforeach ?>
+                <?php endif ?>
+            </div>
+        </div>
+
+        <span id="listTagToInsert"></span>
+        <span id="listParentTag"></span>
+        <span id="listChildrenTag"></span>
+        <?= $this->makePartial('js_tags_fields') ?>
+    </td>
+</tr>
+

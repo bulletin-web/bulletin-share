@@ -1,0 +1,8 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><?= e(trans('system::lang.system.categories.contents')) ?></li>
+    <li><?= e(trans($this->pageTitle)) ?></li>
+</ul>
+<?php Block::endPut() ?>
+<?=$this->makePartial('message_display') ?>
+<?= $this->listRender() ?>

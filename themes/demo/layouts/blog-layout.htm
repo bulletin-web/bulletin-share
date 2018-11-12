@@ -1,0 +1,91 @@
+description = "Blog Layout"
+[demoSettings]
+[blogPosts]
+[blogMenu]
+==
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <!--<link rel="shortcut icon" sizes="32x32" href="./images/common/favicon32x32.png">-->
+    <!--<link rel="icon" sizes="64x64" href="./images/common/favicon64x64.png">-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta itemprop="keywords" name="keywords" content=""/>
+    <meta itemprop="description" name="description" content=""/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:image:width" content="200"/>
+    <meta property="og:image:height" content="200"/>
+    <meta property="og:site_name" content=""/>
+    <meta property="og:country-name" content="Japan"/>
+    <title>{{ demoSettings.infoSetting.site_name }} - {{ this.page.title }}</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ 'assets/javascript/bootstrap/css/bootstrap.min.css'|theme }}">
+    <link rel="stylesheet" href="{{ '/modules/backend/formwidgets/richeditor/assets/css/richeditor.css?v1'}}">
+    <link rel="stylesheet" href="{{ 'assets/javascript/slick/slick.css'|theme }}">
+    <link rel="stylesheet" href="{{ 'assets/css/common.css'|theme }}">
+    <link rel="stylesheet" href="{{ 'assets/css/common_custom.css'|theme }}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    {% if demoSettings.infoSetting.access_analysis_tag %}
+    {{ demoSettings.infoSetting.access_analysis_tag|raw }}
+    {% endif %}
+</head>
+<body>
+
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=1971597273097534';
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<header>
+    {% partial 'site/new-header' %}
+</header>
+<nav class="global-category" id="global-category" style="background: {{ demoSettings.displaySetting.menu_color }};">
+    {% partial 'site/menu-bar' %}
+</nav>
+<!-- Content -->
+<div style="min-height: 69%" id="main">
+    {% page %}
+</div>
+
+<footer>
+    {% partial 'site/new-footer' %}
+</footer>
+<!-- jQuery -->
+<script src="{{ 'assets/javascript/jquery/jquery.min.js'|theme }}"></script>
+<!-- Bootstrap JavaScript -->
+<script src=" {{ 'assets/javascript/bootstrap/js/bootstrap.min.js'|theme }}"></script>
+<script src="{{ 'assets/javascript/slick/slick.min.js'|theme }}"></script>
+<script src="{{ 'assets/javascript/blog.js'|theme }}"></script>
+
+{% partial 'site/js_comment' %}
+{% partial 'site/js_preview' %}
+{% partial 'site/js_custom' %}
+<script>
+    $('#main').on('mouseenter', '.btn_tag', function () {
+        var tag = $(this);
+        tag.attr('style', 'border: 1px solid '+ tag.data('color')+';');
+    });
+    $('#main').on('mouseleave','.btn_tag', function () {
+        var tag = $(this);
+        tag.removeAttr('style');
+    });
+</script>
+</body>
+</html>

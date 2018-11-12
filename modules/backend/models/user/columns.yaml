@@ -1,0 +1,22 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    id:
+      label: ID
+
+    name:
+      label: backend::lang.user.full_name
+      select: concat(last_name, ' ', first_name)
+      searchable: true
+
+    email:
+      label: backend::lang.user.email
+      searchable: true
+
+    groups:
+      label: backend::lang.user.groups
+      relation: groups
+      select: name
+      sortable: false

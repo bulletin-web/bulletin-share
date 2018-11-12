@@ -1,0 +1,20 @@
+<div class="col-sm-6 p20t">
+    <div>URL</div>
+    <input disabled
+           type="text"
+           class="form-control"
+           placeholder=""
+           autocomplete="off"
+           maxlength="255"
+           value='<?= $formModel->id ? url('blog/post') . '/' . $formModel->id : '' ?>'
+    />
+    <input name="Post[slug]"
+           type="hidden"
+           class="form-control"
+           id="Form-field-Post-slug"
+           placeholder=""
+           autocomplete="off"
+           maxlength="255"
+           value='<?php if(isset($vars["formModel"]->attributes["slug"])) echo $vars["formModel"]->attributes["slug"] ?>'
+    />
+</div>

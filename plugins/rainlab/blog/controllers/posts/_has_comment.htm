@@ -1,0 +1,17 @@
+<tr>
+    <td class="left" style="padding-top: 20px !important;">
+        <div class="text-center">
+            <h5>コメント設定</h5>
+        </div>
+    </td>
+    <td class="right">
+        <div class="radio custom-radio">
+            <input id="f6309d56c39ae2d493279787826d5e2f" name="Post[has_comment]" value="1" type="radio" <?php if(!isset($vars["formModel"]->attributes["has_comment"]) || (isset($vars["formModel"]->attributes["has_comment"]) && $vars["formModel"]->attributes["has_comment"] == 1)) echo "checked='checked'"; ?> >
+            <label for="f6309d56c39ae2d493279787826d5e2f">許可</label>
+        </div>
+        <div class="radio custom-radio">
+            <input id="a0523788373cb0aadd19b836f6f7506d" name="Post[has_comment]" value="0" type="radio" <?php if(isset($vars["formModel"]->attributes["has_comment"]) && $vars["formModel"]->attributes["has_comment"] == 0) echo "checked='checked'"; ?> >
+            <label for="a0523788373cb0aadd19b836f6f7506d">不可</label>
+        </div>
+    </td>
+</tr>

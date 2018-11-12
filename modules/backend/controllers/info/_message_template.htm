@@ -1,0 +1,12 @@
+<?php if(Session::get('error')): ?>
+<p data-control="flash-message" data-interval="5" class="error">
+    <?php foreach(Session::get('error')['message']->getMessages() as $value): ?>
+        <?php echo $value[0] ?><br/>
+    <?php endforeach ?>
+</p>
+<?php endif ?>
+<?php if(Session::get('success')): ?>
+<p data-control="flash-message" data-interval="5" class="success">
+    <?=Session::get('success') ?>
+</p>
+<?php endif ?>

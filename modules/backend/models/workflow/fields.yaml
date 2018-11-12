@@ -1,0 +1,24 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: backend::lang.workflow.name
+        placeholder: backend::lang.workflow.placeholder_name
+
+    approve_list_create:
+        label: false
+        type: partial
+        path: approve_list_create
+
+    approve_list_update:
+        label: false
+        type: partial
+        path: approve_list_update
+
+    description:
+        label: backend::lang.user.group.description_field
+        type: textarea
+        size: large

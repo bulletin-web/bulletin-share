@@ -1,0 +1,38 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: backend::lang.menu.name
+        placeholder: backend::lang.menu.placeholder_name
+
+    type:
+        label: backend::lang.menu.type
+        type: dropdown
+        showSearch: false
+        emptyOption: メニュータイプを選択してください。
+        options:
+            1: グローバルメニュー
+            2: フッターメニュー
+            3: サブメニュー
+
+    is_active:
+        label: backend::lang.menu.is_active
+        type: checkbox
+
+    menu_list_create:
+        label: false
+        type: partial
+        path: menu_list_create
+
+    menu_list_update:
+        label: false
+        type: partial
+        path: menu_list_update
+
+    description:
+        label: backend::lang.user.group.description_field
+        type: textarea
+        size: large

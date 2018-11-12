@@ -1,0 +1,31 @@
+columns:
+
+    tag_color:
+        label: rainlab.blog::lang.category.color
+        sortable: false
+        type: partial
+        path: ~/plugins/rainlab/blog/models/tag/_color_column.htm
+        width: 10%
+
+    name:
+        label: rainlab.blog::lang.tag.name
+        searchable: true
+        sortable: true
+        width: 20%
+
+    slug:
+        label: rainlab.blog::lang.tag.slug
+        searchable: true
+        sortable: true
+        width: 20%
+
+    description:
+        label: rainlab.blog::lang.tag.description
+        searchable: true
+        sortable: true
+        width: 20%
+
+    post_count:
+        label: rainlab.blog::lang.tag.post_count
+        sortable: false
+        width: 10%

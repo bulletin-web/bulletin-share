@@ -1,0 +1,74 @@
+<div class="container-fluid fr-view" id="review-post-content">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 mb-15">
+            <?php if(($this->data->status == 2 && $this->data->post_reject != 1)||($this->data->status == 3 && $this->data->post_reject != 1)) { ?>
+            <?php $id = $this->data->id; ?>
+            <a href='<?php echo Backend::url("backend/post/approve/$id") ?>' class="btn btn-primary"><i class="icon-check"></i> 承認</a>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="background: #c82a1c"><i class="icon-times"></i> 却下</button>
+            <?php } ?>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="row">
+                <img src="<?php echo $this->data->featured_image->path; ?>" alt="feature image">
+            </div>
+            <p><h3><?php echo $this->data->title; ?></h3></p>
+            <?php if ($this->data->category_id && !empty($this->data->categories)): ?>
+            <p>
+                <span style="background-color: <?= $this->data->categories->color ?>" class="btn btn-default"><?= $this->data->categories->name ?></span>
+            </p>
+            <?php endif ?>
+            <?php if($this->data->tags): ?>
+                <?php foreach($this->data->tags as $tag):?>
+                <span style="margin-bottom: 5px; background-color: <?= $tag->tag_color ?>" class="btn btn-default"><?= $tag->name ?></span>
+                <?php endforeach ?>
+            <?php endif ?>
+            <p class="mt-10">
+                <?php if(isset($this->data->published_at)) : ?>
+                <span><i class="icon-calendar"></i> <?php echo date_format($this->data->published_at, 'Y.m.d'); ?></span>
+                <span><i class="icon-clock-o"></i> <?php echo date_format($this->data->published_at, 'H:i'); ?></span>
+                <?php endif ?>
+            </p>
+            <p><?php echo $this->data->content; ?></p>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">確認</h4>
+            </div>
+            <form action="<?= Backend::url('backend/post/rejectPost') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label">却下理由</label>
+                        <textarea class="form-control" name="reason" id="" cols="30" rows="10" style="resize: vertical"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer" style="text-align: center">
+                    <button type="submit" class="btn btn-primary">送信</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">キャンセル</button>
+                </div>
+                <input type="hidden" name="postId" value="<?php echo $this->data->id; ?>">
+            </form>
+        </div>
+
+    </div>
+</div>
+<!-- Flash Messages -->
+<div id="layout-flash-messages"><?= $this->makeLayoutPartial('template_messages') ?></div>
+
+<script>
+    $(document).ready(function () {
+        $('#layout-flash-messages').click( function() {
+            $(this).remove();
+        });
+
+        setTimeout(function() {
+            $('#layout-flash-messages').remove();
+        }, 5000);
+    });
+</script>

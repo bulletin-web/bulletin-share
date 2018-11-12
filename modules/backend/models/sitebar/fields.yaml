@@ -1,0 +1,26 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+      name:
+          label: backend::lang.sitebar.title
+          placeholder: backend::lang.sitebar.placeholder_name
+
+      banner_image:
+         label: 画像を登録
+         type: fileupload
+         mode: image
+         imageHeight: 300
+
+
+      content_type:
+          label: false
+          type: partial
+          path: content_type
+
+      description:
+          label: backend::lang.sitebar.description
+          type: textarea
+          size: large

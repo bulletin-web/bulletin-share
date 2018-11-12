@@ -1,0 +1,62 @@
+<div class="singin-logo">
+    <img src="<?= Url::to('modules/backend/assets/images/new-logo.png') ?>" alt="">
+</div>
+<?= Form::open() ?>
+    <input type="hidden" name="postback" value="1" />
+
+    <div class="form-elements" role="form">
+        <!-- Login -->
+        <div class="form-group">
+            <label class="control-label">ユーザーID</label>
+            <input
+                type="text"
+                name="email"
+                value="<?= e(post('email')) ?>"
+                class="form-control icon user"
+                autocomplete="off"
+                maxlength="255" />
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+            <label class="control-label">パスワード</label>
+            <input
+                type="password"
+                name="password"
+                value=""
+                class="form-control icon lock"
+                autocomplete="off"
+                maxlength="255" />
+        </div>
+        <!-- Submit Login -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary login-button btn-full-width">
+                ログイン
+            </button>
+        </div>
+
+        <?php if (is_null(config('cms.backendForceRemember', true))) : ?>
+            <!-- Remember checkbox -->
+            <div class="form-group checkbox-field horizontal-form remember">
+                <div class="checkbox custom-checkbox">
+                    <input
+                        type="checkbox"
+                        id="remember"
+                        name="remember" />
+                    <label for="remember">
+                        <?= e(trans('backend::lang.account.remember_me')) ?>
+                    </label>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <p class="pull-left">
+            <!-- Forgot your password? -->
+            <a href="<?= Backend::url('backend/auth/restore') ?>" class="text-muted" style="color:#6493DC">
+                パスワードを忘れですか？
+            </a>
+        </p>
+
+    </div>
+<?= Form::close() ?>
+
+<?= $this->fireViewEvent('backend.auth.extendSigninView') ?>

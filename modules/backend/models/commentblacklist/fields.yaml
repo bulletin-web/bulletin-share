@@ -1,0 +1,9 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    phrase:
+        label: backend::lang.comment.blacklist_fields.phrase
+        span: full

@@ -1,0 +1,24 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    color:
+        label: rainlab.blog::lang.category.color
+        sortable: false
+        type: partial
+        path: ~/plugins/rainlab/blog/models/category/_color_column.htm
+
+    name:
+        label: rainlab.blog::lang.category.name
+        searchable: true
+
+    slug:
+        label: rainlab.blog::lang.category.url
+
+    post_count:
+        label: rainlab.blog::lang.category.posts
+        sortable: false
+
+
+

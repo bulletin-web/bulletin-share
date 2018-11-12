@@ -1,0 +1,5 @@
+<?php if($this->is_create): ?>
+<?= $this->makePartial('tags_fields_create') ?>
+<?php else: ?>
+<?= $this->makePartial('tags_fields_update') ?>
+<?php endif ?>

@@ -1,0 +1,11 @@
+/*---------------------------
+RESPONSIVE
+----------------------------*/
+@media only screen and (min-width: 992px) {
+    section.category-list ul.list-item li .card .card-main .card-image {
+        height: 130px;
+    }
+    section.category-list ul.list-item li .card .card-cate {
+        top: 106px;
+    }
+}

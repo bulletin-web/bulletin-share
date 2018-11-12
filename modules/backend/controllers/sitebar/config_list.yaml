@@ -1,0 +1,18 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: サイドバーウィジット
+list: ~/modules/backend/models/sitebar/columns.yaml
+modelClass: Backend\Models\SiteBar
+recordUrl: backend/sitebar/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 20
+
+# Display checkboxes next to each record
+showCheckboxes: true
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

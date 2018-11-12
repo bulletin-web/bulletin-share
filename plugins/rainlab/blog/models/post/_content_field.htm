@@ -1,0 +1,575 @@
+<div id="redips-drag" class="row" style="padding-bottom: 80px;">
+    <!-- left container -->
+    <div id="left" class="col-md-5 col-lg-4">
+        <div class="instructions"></div>
+        <div class="table-wrap" id="sticky-drags">
+            <table id="tblComponents">
+                <colgroup>
+                    <col width="150"/>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td class="redips-mark" style="padding-top: 15px">
+                        <div class="redips-drag redips-clone" data-type="paragraph">
+                            本文を入力する
+                            <div class="hide html-el item-el">
+                                <textarea rows="7" class="content-element text-area-content form-control textarea" data-type="paragraph"></textarea>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="redips-mark">
+                        <div class="redips-drag redips-clone content-element" data-type="image">
+                            画像を挿入する
+                            <img src="" alt="" class="hide" style="width: 100%;  margin-left: auto;  margin-right: auto;">
+                            <input type="file" accept="image/*" class="item-template hide html-el img-el" onchange="readURL(this)">
+                        </div>
+                    </td>
+                </tr>
+                <!--<tr>-->
+                    <!--<td class="redips-mark">-->
+                        <!--<div class="redips-drag redips-clone" data-type="from-media">-->
+                            <!--画像を挿入する-->
+                            <!--<div class="hide html-el item-el">-->
+                                <!--<textarea rows="7" class="content-element text-area-content form-control from_media" data-type="from-media"></textarea>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="redips-drag redips-clone" data-type="from-media">&ndash;&gt;-->
+                            <!--&lt;!&ndash;画像を挿入（メディアから選択）&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="content-element list-content html-el hide" data-type="from-media">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<button class="btn btn-primary"><i class="fas fa-plus"></i> メディアから選択</button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <tr>
+                    <td class="redips-mark">
+                        <div class="redips-drag redips-clone content-element" data-type="video">
+                            動画を挿入する
+                            <p></p>
+                            <video width="100%" class="hide" src="" controls="">
+                                <div class="panel media-player-fallback">Your browser doesn't support HTML5 video.</div>
+                            </video>
+                            <input type="file" accept="video/*" class="item-template hide html-el img-el" onchange="uploadVideo(this)">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="redips-mark">
+                        <div class="redips-drag redips-clone" data-type="separation">
+                            罫線を挿入する
+                            <div class="content-element separation-content html-el hide" data-type="separation">
+                                <hr>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr><td class="redips-mark" style="text-align: center">
+                    <div class="redips-drag redips-clone" data-type="html">
+                        HTML
+                        <div class="hide html-el item-el">
+                            <div class="content-element html-edit"
+                                 data-type="html"
+                                 contentEditable="true"></div>
+                        </div>
+                    </div>
+                </td></tr>
+                <tr>
+                    <td class="redips-mark">
+                        <div class="redips-drag redips-clone" data-type="quote">
+                            引用を挿入する
+                            <div style="width: 100%; display: inline-block;" class="html-el hide item-el">
+                                <i class="icon-quote-left"></i>
+                                <textarea rows="5" class="content-element quote-content form-control textarea" data-type="quote" style="margin-bottom: 5px"></textarea>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="redips-mark">
+                        <div class="redips-drag redips-clone" data-type="list">
+                            リストを挿入する
+                            <div class="content-element list-content html-el hide" data-type="list">
+                                <button class="btn btn-primary btn-add btn-xs" onclick="addItem(event, this)">
+                                    <i class="icon-plus" style="color: #fff"></i> さらに追加する
+                                </button>
+                                <div style="clear: both"></div>
+                                <ul style = "list-style:none; margin-right: 20px">
+                                    <li  class="listItem"><textarea class="form-control textarea" rows="1"></textarea></li>
+                                    <button class="btn btn-primary btn-xs btn-remove" onclick="removeItem(event, this)">
+                                        <i class="icon-minus" style="color: #fff"></i> アイテムを削除する
+                                    </button>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr><td class="redips-mark"><div class="redips-drag redips-clone" data-type="table">テーブルを挿入する</div></td></tr>
+                <!--<tr><td class="redips-mark" style="text-align: center">-->
+                    <!--コンテンツ-->
+                <!--</td></tr>-->
+                <!--<tr>-->
+                    <!--<td class="redips-mark" style="padding-bottom: 15px">-->
+                        <!--<div class="redips-drag redips-clone" data-type="interview">-->
+                            <!--インタビュー-->
+                            <!--<div class="content-element list-content html-el hide" data-type="interview">-->
+                                <!--<button class="btn btn-primary btn-add btn-xs" onclick="addItemSpec(event, this)">-->
+                                    <!--<i class="icon-plus" style="color: #fff"></i> さらに追加する-->
+                                <!--</button>-->
+                                <!--<div style="clear: both"></div>-->
+                                <!--<ul style="list-style: none" class="interview-content">-->
+                                    <!--<li class="listItem"><textarea class="form-control textarea" rows="1"></textarea></li>-->
+                                    <!--<li class="listItem"><textarea class="form-control textarea" rows="1"></textarea></li>-->
+                                    <!--<button class="btn btn-primary btn-xs btn-remove" onclick="removeItemSpec(event, this)">-->
+                                        <!--<i class="icon-minus" style="color: #fff"></i> アイテムを削除する-->
+                                    <!--</button>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td class="redips-mark">-->
+                        <!--<div class="redips-drag redips-clone" data-type="qa">-->
+                            <!--Q&A-->
+                            <!--<div class="content-element list-content html-el hide" data-type="qa">-->
+                                <!--<button class="btn btn-primary btn-add btn-xs" onclick="addItemSpec(event, this)">-->
+                                    <!--<i class="icon-plus" style="color: #fff"></i> さらに追加する-->
+                                <!--</button>-->
+                                <!--<div style="clear: both"></div>-->
+                                <!--<ul style="list-style: none" class="faq-content">-->
+                                    <!--<li class="listItem"><textarea class="form-control textarea" rows="1"></textarea></li>-->
+                                    <!--<li class="listItem"><textarea class="form-control textarea" rows="1"></textarea></li>-->
+                                    <!--<button class="btn btn-primary btn-xs btn-remove" onclick="removeItemSpec(event, this)">-->
+                                        <!--<i class="icon-minus" style="color: #fff"></i> アイテムを削除する-->
+                                    <!--</button>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                </tbody>
+            </table>
+            <div class="btn-show"></div>
+            <div class="btn-hide" style="display: none"></div>
+        </div>
+        <!--<div class="btn-wrap" style="margin-top: 30px">-->
+        <!--<div class="btn btn-add btn-xs btn-preview" onclick="Preview()">プレビュー</div>-->
+        <!--</div>-->
+    </div><!-- left container -->
+    <!-- right container -->
+    <div class="col-md-7 col-lg-8 drags-side-right">
+        <div id="right">
+            <!-- main table -->
+            <table id="tblEditor">
+                <colgroup>
+                    <col width="80%"/>
+                    <col width="20%"/>
+                </colgroup>
+                <tbody>
+                <?php
+                if ($this->action == 'create') {
+                ?>
+                <tr>
+                    <td></td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline;">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else {
+                    $contentJson = (array) json_decode($vars['formModel']->attributes['content_json']);
+
+                if(isset($contentJson)) {
+                ?> <input type="hidden"  id="post-status" data-contents='<?= $formModel->status ?>'>
+                <!--<input type="hidden"  value="31231" id="post-content-json-test" data-contents='<?= $vars["formModel"]->attributes["content_json"] ?>'>-->
+                <script type="text/javascript">
+                    var content_json = JSON.stringify(<?= (string) $formModel->content_json ?>);
+                </script>
+                <input type="hidden"  value="31231" id="post-content-json-test" data-contents='<?= base64_encode(json_encode($formModel->content_json)) ?>'>
+                <?php foreach($contentJson as $item) {
+                            $item = (array) $item;
+                            $element = array_keys($item)[0];
+
+                            if ($element == 'paragraph') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="paragraph">
+                            本文を入力する
+                            <div class="html-el item-el">
+                                                <textarea rows="7" class="content-element text-area-content form-control dropped-element textarea" data-type="paragraph"><?php echo isset($item[$element]->content) ? $item[$element]->content : ''; ?>
+                                                </textarea>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'quote') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="quote">
+                            引用を挿入する
+                            <div style="width: 100%; display: inline-block;" class="html-el item-el">
+                                <i class="icon-quote-left"></i>
+                                <textarea rows="5" class="content-element quote-content form-control dropped-element textarea" data-type="quote" style="margin-bottom: 5px"><?php echo isset($item[$element]->content) ? $item[$element]->content : ''; ?>
+                                                </textarea>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'separation') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="separation">
+                            罫線を挿入する
+                            <div class="content-element separation-content html-el dropped-element" data-type="separation">
+                                <hr>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'table') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="table">テーブル
+                            <table style="width: 100%" class="content-element dropped-element" data-type="table">
+                                <tbody>
+                                <?php for($i = 0; $i < $item[$element]->rows; $i++) {
+                                echo '<tr>';
+                                    for($j = 0; $j < $item[$element]->cols; $j++) {
+                                    $cellName = 'cell_' . $i . '_' . $j;
+                                    $valCell = isset($item[$element]->$cellName) ? $item[$element]->$cellName : '';
+                                    echo '<td class="redips-mark"><input type="text" class="tbl-input" value="' . $valCell . '"></td>';
+                                    }
+                                    echo '</tr>';
+                                } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'image') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag content-element dropped-element edit-item" data-type="image">
+                            画像を挿入（ローカルからアップロード）
+                            <img src="<?php echo isset($item[$element]->src) ? $item[$element]->src : ''; ?>" alt="" style="width: 100%;  margin-left: auto;  margin-right: auto;">
+                            <input type="file" accept="image/*" class="item-template html-el img-el" onchange="readURL(this)">
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'video') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag content-element dropped-element edit-item" data-type="video">
+                            動画を挿入する
+                            <p></p>
+                            <video width="100%" src="<?php echo isset($item[$element]->src) ? $item[$element]->src : ''; ?>" controls="">
+                                <div class="panel media-player-fallback">Your browser doesn't support HTML5 video.</div>
+                            </video>
+                            <input type="file" accept="video/*" class="item-template html-el img-el" onchange="uploadVideo(this)">
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'from-media') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="from-media">
+                            画像を挿入（メディアから選択）
+                            <div class="html-el item-el">
+                                <textarea rows="7" class="content-element text-area-content form-control dropped-element from_media" data-type="from-media"><?php echo isset($item[$element]->content) ? $item[$element]->content : ''; ?></textarea>
+                            </div>
+                        </div>
+                    </td>
+                    <!--<td>-->
+                        <!--<div class="redips-drag edit-item" data-type="from-media">-->
+                            <!--画像を挿入（メディアから選択）-->
+                            <!--<div class="content-element list-content html-el dropped-element" data-type="from-media">-->
+                                <!--<button class="btn btn-primary"><i class="fas fa-plus"></i> メディアから選択</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'list') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="list">
+                            リストを挿入する
+                            <div class="content-element list-content html-el dropped-element" data-type="list">
+                                <button class="btn btn-primary btn-xs btn-add" onclick="addItem(event, this)">
+                                    <i class="icon-plus" style="color: #fff"></i> さらに追加する
+                                </button>
+                                <div style="clear: both"></div>
+                                <ul style = "list-style:none; margin-right: 20px">
+                                    <?php for($i = 0; $i < $item[$element]->number; $i++) {
+                                    $liName = 'li_'.$i;
+                                    $liVal = isset($item[$element]->$liName) ? $item[$element]->$liName : '';
+                                    echo '<li class="listItem"><textarea class="form-control textarea" rows="1">'.$liVal.'</textarea></li>';
+                                    } ?>
+                                    <button class="btn btn-primary btn-xs btn-remove" onclick="removeItem(event, this)">
+                                        <i class="icon-minus" style="color: #fff"></i> アイテムを削除する
+                                    </button>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'html') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="html">
+                            HTML
+                            <div class="content-element list-content html-el dropped-element" data-type="html">
+                                <div class="content-element html-edit"
+                                     data-type="html"
+                                     contentEditable="true"
+                                ><?php echo isset($item[$element]->content) ? htmlentities($item[$element]->content) : ''; ?></div>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'qa') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="qa">
+                            Q&A
+                            <div class="content-element list-content html-el dropped-element" data-type="qa">
+                                <button class="btn btn-primary btn-add btn-xs" onclick="addItemSpec(event, this)">
+                                    <i class="icon-plus" style="color: #fff"></i> さらに追加する
+                                </button>
+                                <div style="clear: both"></div>
+                                <ul style = "list-style:none" class="faq-content">
+                                    <?php for($i = 0; $i < $item[$element]->number; $i++) {
+                                    $liName = 'li_'.$i;
+                                    $liVal = isset($item[$element]->$liName) ? $item[$element]->$liName : '';
+                                    echo '<li class="listItem"><textarea class="form-control textarea" rows="1">'.$liVal.'</textarea></li>';
+                                    } ?>
+                                    <button class="btn btn-primary btn-xs btn-remove" onclick="removeItemSpec(event, this)">
+                                        <i class="icon-minus" style="color: #fff"></i> アイテムを削除する
+                                    </button>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } else if ($element == 'interview') { ?>
+                <tr>
+                    <td>
+                        <div class="redips-drag edit-item" data-type="interview">
+                            Q&A
+                            <div class="content-element list-content html-el dropped-element" data-type="interview">
+                                <button class="btn btn-primary btn-xs btn-add" onclick="addItemSpec(event, this)">
+                                    <i class="icon-plus" style="color: #fff"></i> さらに追加する
+                                </button>
+                                <div style="clear: both"></div>
+                                <ul style = "list-style:none" class="interview-content">
+                                    <?php for($i = 0; $i < $item[$element]->number; $i++) {
+                                    $liName = 'li_'.$i;
+                                    $liVal = isset($item[$element]->$liName) ? $item[$element]->$liName : '';
+                                    echo '<li class="listItem"><textarea class="form-control textarea" rows="1">'.$liVal.'</textarea></li>';
+                                    } ?>
+                                    <button class="btn btn-primary btn-xs btn-remove" onclick="removeItemSpec(event, this)">
+                                        <i class="icon-minus" style="color: #fff"></i> アイテムを削除する
+                                    </button>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- table cells should be ignored for REDIPS.table lib -->
+                    <td class="redips-mark ignore">
+                        <div style="text-align:center">
+                            <div style="text-align: center; display: inline; margin-right: 15%">
+                                <span onclick="redips.rowDelete(this)" class="rowTool"><i class="icon-times"></i></span>
+                            </div>
+                            <div style="text-align: center; display: inline; margin-left: 15%">
+                                <span onclick="redips.rowInsert(this)" class="rowTool"><i class="icon-plus"></i></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+                <?php }
+                        }
+                    }
+                ?>
+                </tbody>
+            </table>
+        </div><!-- left container -->
+    </div>
+</div>
+</div>
+</td>
+</tr>
+<!-- Return to Top -->
+<input type="hidden" name="Post[content]" value="" id="post-content">
+<input type="hidden" name="Post[content_json]" value="" id="post-content-json">
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var formData = new FormData();
+            formData.append('image', input.files[0]);
+
+            $.ajax({
+                url: '<?php echo Backend::url("rainlab/blog/posts/uploadContentImage") ?>',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success : function(data) {
+                    if (data.status === 'success') {
+                        $(input).parent().find('img').attr("src", data.image).removeClass('hide');
+                        $('#img-file-data').val(data.image);
+                    }
+                }
+            });
+        } else {
+            $(input).parent().find('img').attr("src", "").addClass('hide');
+        }
+    }
+    function uploadVideo(input) {
+        var videosize = <?= config('constant.videosize') ?>;
+        if (input.files && input.files[0]) {
+            if (input.files[0].size > videosize) {
+                alert('取り込みファイルサイズは設定されているサイズを越えています。もう一度やり直してください。');
+                return;
+            }
+            var formData = new FormData();
+            formData.append('video', input.files[0]);
+
+            $.ajax({
+                url: '<?php echo Backend::url("rainlab/blog/posts/uploadContentVideo") ?>',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success : function(data) {
+                    if (data.status === 'fail') {
+                        alert(data.message);
+                    }
+                    if (data.status === 'success') {
+                        $(input).parent().find('video').attr("src", data.video).removeClass('hide');
+                    }
+                }
+            });
+        } else {
+            $(input).parent().find('video').attr("src", "").addClass('hide');
+        }
+    }
+</script>

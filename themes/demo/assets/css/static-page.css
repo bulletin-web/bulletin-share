@@ -1,0 +1,177 @@
+.title_page_static {
+	position: relative;
+	color: #0089CF;
+	border-left: 5px solid;
+	padding: 5px 15px;
+}
+
+/*========Business=========*/
+.box_description_content {
+	margin-top: 50px;
+}
+.box_description_content h1{
+	color: #0089CF;
+	line-height: 50px;
+}
+.box_description_content .bottom_line {
+	border-bottom: 3px dotted #0089CF;
+	width: 245px;
+	display: inline-block;
+}
+.box_description_content .description {
+	margin-top: 18px;
+}
+
+.box_description_content .description p {
+	font-size: 1.5em;
+	line-height: 30px;
+}
+
+.value {
+	margin-top: 50px;
+}
+
+.value .title_value {
+	font-size: 2em;
+}
+.value .title_value h2 {
+	overflow: hidden;
+}
+.value .title_value h2 span {
+	position: relative;
+	padding: 0 1em;
+	text-align: center;
+	display: inline-block;
+}
+.value .title_value h2 span:after {
+	right: 100%;
+}
+.value .title_value h2 span:before{
+	left: 100%;
+}
+.value .title_value h2 span:after,
+.value .title_value h2 span:before {
+	position: absolute;
+	top: 50%;
+	content: ' ';
+	width: 400%;
+	height: 0;
+	border-top: 1px solid #EEE;
+}
+
+.value .item_value {
+	margin-top: 30px;
+}
+.value .item_value .item {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.value .item_value .item h3 {
+	font-size: 1.5em;
+	color: #299900;
+}
+.value .item_value .item p{
+	font-size: 1.2em;
+}
+
+/*=======Personal Information========*/
+.personal_info h2{
+	color: #0089CF;
+}
+
+.content_personal_info h3 {
+	border-left: 5px solid #DD3354;
+	padding: 7px 15px;
+	background-color: #F4F4F0;
+	font-size: 20px;
+	font-weight: bold;
+}
+.content_personal_info p {
+	font-size: 14px;
+}
+
+.content_personal_info .sections {
+	margin-top: 30px;
+}
+
+.content_personal_info .sections .page-col-title {
+	padding: 10px 0;
+	border-bottom: 1px solid #CCC;
+	background-color: #F4F4F0;
+}
+
+.content_personal_info .sections .page-col-title em {
+	display: block;
+	padding: 0 8px;
+	border-left: 4px solid #BE921C;
+	font-weight: bold;
+}
+
+/*=======About Company=======*/
+.company table {
+	width: 100%;
+	margin: 50px auto;
+}
+.company table tr td{
+	border: 1px solid #ccc;
+	padding: 10px;
+	font-size: 14px;
+}
+
+.company table tr td:first-child{
+	background-color: #F0F0F0;
+	font-weight: 600;
+}
+
+/*======Policy========*/
+.policy .box_policy{
+	margin: 20px auto;
+}
+
+.policy .box_policy .element{
+	padding: 10px 10px;
+	border-bottom: 3px solid #299900;
+	background: #F2F2F2;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.policy .box_policy p {
+	font-size: 14px;
+}
+.policy .box_policy .ind {
+	padding: 20px 15px;
+}
+.policy .box_policy .ind .listVerticalNumIn {
+	list-style-type: decimal;
+	padding-left: 35px;
+}
+.policy .box_policy .ind .listVerticalNumIn li {
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+.policy .box_policy .ind .hLevel3 {
+	font-size: 14px;
+	font-weight: bold;
+}
+.policy .box_policy .ind .hLevel3:first-child {
+	margin-top: 0;
+}
+.policy .box_policy .ind .listVerticalDotIn {
+	list-style-type: circle;
+	margin-left: 35px;
+}
+.policy .box_policy .ind .listVerticalDotIn li {
+	font-size: 14px;
+}
+.policy .box_policy .ind .hLevel4 {
+	font-size: 14px;
+	margin: 20px 0;
+	font-weight: bold;
+}
+
+@media only screen and (min-width: 768px){
+	.company table {
+		width: 70%;
+	}
+}

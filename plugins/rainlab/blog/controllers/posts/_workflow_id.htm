@@ -1,0 +1,25 @@
+<tr>
+    <td class="left">
+        <div class="text-center">
+            <i class="fas fa-code-branch fa-2x"></i>
+            <h5>ワークフロー</h5>
+        </div>
+    </td>
+    <td class="right">
+        <div class="row">
+            <div class="col-xs-12">ワークフロー申請先設定</div>
+            <div class="col-sm-6">
+                <?= $this->formRenderField('workflow_id') ?>
+            </div>
+            <div class="col-sm-6 p8t">
+                <?php if (!$this->is_create): ?>
+                    <?php if ($this->workflow_status['statusPost']!= 4 && $this->workflow_status['statusPost']!= 5 && $this->workflow_status['statusPost']!= 6 && $this->workflow_status['statusPost']!= 8): ?>
+                        <?php if ($this->workflow_status['count']): ?>
+                            <?= $this->workflow_status['count'] ?>人中　<?= $this->workflow_status['approved'] ?>人が承認しました。<?php if ($this->workflow_status['count'] != $this->workflow_status['approved']) : ?>　次の承認者は　<?= $this->workflow_status['user'] ?>さん　です<?php endif ?>。
+                        <?php endif ?>
+                    <?php endif ?>
+                <?php endif ?>
+            </div>
+        </div>
+    </td>
+</tr>

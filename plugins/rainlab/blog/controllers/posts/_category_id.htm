@@ -1,0 +1,19 @@
+<tr>
+    <td class="left">
+        <div class="text-center">
+            <i class="fas fa-folder fa-2x"></i>
+            <h5>カテゴリ</h5>
+        </div>
+    </td>
+    <td class="right">
+        <div class="row">
+            <div class="col-xs-12">投稿を関連付けるカテゴリーを選択してください。</div>
+            <div class="col-sm-5">
+                <?= $this->formRenderField('category_id') ?>
+            </div>
+            <div class="col-sm-5 col-sm-offset-1">
+                <a class="btn btn-primary" href="/backend/rainlab/blog/categories/create" target="_blank"><i class="fas fa-plus"></i> 新規作成</a>
+            </div>
+        </div>
+    </td>
+</tr>

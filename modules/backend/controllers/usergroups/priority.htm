@@ -1,0 +1,66 @@
+<?php if($this->user->hasAccess('backend.group.add_new_group')): ?>
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><a href="<?= Backend::url('backend/usergroups') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></a></li>
+    <li><?= e(trans('backend::lang.user.group.menu_label')) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<div class="container-fluid">
+    <h1><?= e(trans('backend::lang.user.group.priority.page_title')) ?></h1>
+    <div id="msg-template-flash" class="hide">
+    </div>
+    <div id="reorder-helper" >
+        1. 並べ替えのためにアイテムをドラッグ <br/>
+        2. 終了したら[保存]をクリックします。
+    </div>
+    <div class="row" id="reorder-wrap">
+        <div class="col-md-8 col-md-offset-3">
+            <ul id="sortable">
+                <?php $data= $this->data ?>
+                <?php foreach($data as $key => $name): ?>
+                    <li data-id="<?php echo $key;  ?>" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $name; ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <button id="save-reorder" class="btn btn-primary"><?= e(trans('backend::lang.user.group.priority.save')) ?></button>
+            <a href="<?= Backend::url('backend/usergroups/priority') ?>" class="btn btn-primary"><?= e(trans('backend::lang.user.group.priority.reset')) ?></a>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#sortable').sortable();
+        $('#sortable').disableSelection();
+
+        $('#save-reorder').on('click', function () {
+            var list = new Array();
+            $('#sortable').find('.ui-state-default').each(function(){
+                var id=$(this).attr('data-id');
+                list.push(id);
+            });
+            var data=JSON.stringify(list);
+            $.ajax({
+                url:'<?php echo Backend::url("backend/usergroups/savePrioritySetting") ?>',
+                type: 'POST',
+                data: {token:'reorder',data:data},
+                datatype: 'json',
+                success: function(message) {
+                    if (message === 'success') {
+                        $('#msg-template-flash').empty();
+                        $('#msg-template-flash').removeClass('hide').append('<p>グループ優先が設定されました。</p>');
+                        $('html,body').animate({scrollTop: 0});
+
+                        setTimeout(function () {
+                            $('#msg-template-flash').addClass('hide');
+                        }, 5000);
+                    }
+
+                }
+            });
+        });
+    });
+</script>
+<?php else: ?>
+<?= $this->makePartial('permission_denied') ?>
+<?php endif ?>

@@ -1,0 +1,51 @@
+[blogCategories]
+[blogTags]
+[blogPosts]
+[blogMenu]
+==
+function onStart() {
+if ($this->tag) {
+$this['active'] = '/blog/tags/'.$this->tag->slug;
+}
+if ($this->category) {
+$this['active'] = '/blog/category/'.$this->category->slug;
+}
+}
+==
+<!--<div class="container line" style="background-color: red;height: 3px;margin-bottom: 2px"></div>-->
+<div class="container">
+    {% set globalMenu = blogMenu.getGlobalMenu() %}
+    {% if globalMenu %}
+    <ul>
+        {% for menu in globalMenu %}
+        {% if blogMenu.getMenuLink(menu.type, menu.id) %}
+        <li class="cate-link {% if active == blogMenu.getMenuLink(menu.type, menu.id) %} active {% endif %}">
+            <div class="line" style="background-color: {{ blogMenu.getMenuColor(menu.type, menu.id) }};"></div>
+            <a href="{{ hasPreview ? 'javascript:;' : blogMenu.getMenuLink(menu.type, menu.id) }}"
+               title="{{ blogMenu.getMenuName(menu.type, menu.id) }}">{{ str_limit(blogMenu.getMenuName(menu.type,
+                menu.id), 20) }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+            <span class="dot-1"></span>
+            <span class="dot-2"></span>
+            <span class="dot-3"></span>
+        </a>
+        {% set subMenu = blogMenu.getSubMenu() %}
+        {% if subMenu %}
+        <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            {% for menu in subMenu %}
+            {% if blogMenu.getMenuLink(menu.type, menu.id) %}
+            <li><a class="dropdown-item" href="{{ hasPreview ? 'javascript:;' : blogMenu.getMenuLink(menu.type, menu.id) }}">{{
+                str_limit(blogMenu.getMenuName(menu.type, menu.id), 20) }}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>

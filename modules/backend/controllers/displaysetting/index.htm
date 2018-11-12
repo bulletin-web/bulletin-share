@@ -1,0 +1,166 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><?= e(trans('system::lang.system.categories.website')) ?></li>
+    <li>サイト表示</li>
+</ul>
+<?php Block::endPut() ?>
+<?php if (!$this->fatalError): ?>
+<?php $post = Session::get('post') ? Session::get('post') : null ?>
+<div class="col-md-8">
+    <?=$this->makePartial('message_display') ?>
+    <form
+        class="form-horizontal"
+        action="<?= Backend::url('backend/displaysetting/store') ?>"
+        method="post"
+        enctype="multipart/form-data">
+
+    <div class="col-md-8">
+        <div class="form-group">
+            <label>会社ロゴ</label>
+            <div class="col-md-offset-1">
+                <input style="height: auto;" class="form-control" type="file" name="Display[file_upload]" accept="image/*">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>メニューのカラー</label>
+            <div style="margin-top: 5px"
+                 id="ColorPicker-formColor-color"
+                 class="field-colorpicker col-md-offset-1"
+                 data-control="colorpicker"
+                 data-data-locker="#ColorPicker-formColor-input-color">
+
+                <ul>
+                    <?php foreach ($this->availableColors as $index => $color): ?>
+                    <li
+                        class="<?= $color == $this->checkInput($post['menu_color'], isset($this->data->menu_color) ? $this->data->menu_color : null) ? 'active' : null ?>"
+                        data-hex-color="<?= $color ?>">
+                        <span style="background: <?= $color ?>"><?= $color ?></span>
+                    </li>
+                    <?php if ($index == 9 || $index == 19 || $index == 29 || $index == 39 || $index == 49 || $index == 59): ?>
+                    <div class="clearfix"></div>
+                    <?php endif ?>
+                    <?php endforeach ?>
+                    <li style="width: 260px"
+                        class="custom-color <?= $this->isCustomColor($this->checkInput($post['menu_color'], isset($this->data->menu_color) ? $this->data->menu_color : null)) == $this->checkInput($post['menu_color'], isset($this->data->menu_color) ? $this->data->menu_color : null) ? 'active' : null ?>"
+                        data-hex-color="<?= $this->isCustomColor($this->checkInput($post['menu_color'], isset($this->data->menu_color) ? $this->data->menu_color : null)) ? $this->checkInput($post['menu_color'], isset($this->data->menu_color) ? $this->data->menu_color : null) : '#ffffff' ?>"
+                        data-custom-color>
+                        <span style="width: 100%;background: <?= $this->isCustomColor($this->checkInput($post['menu_color'], isset($this->data->menu_color) ? $this->data->menu_color : null)) ? $this->checkInput($post['menu_color'], isset($this->data->menu_color) ? $this->data->menu_color : null) : '#ffffff' ?>"></span>
+                    </li>
+                </ul>
+
+                <input
+                    type="hidden"
+                    id="ColorPicker-formColor-input-color"
+                    name="Display[menu_color]"
+                    value="<?= $this->checkInput($post['menu_color'], isset($this->data->menu_color) ? $this->data->menu_color : null, "#4aa1c7") ?>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="h4">トップページの表示設定</label>
+            <div class="col-md-12">
+                <div class="radio custom-radio">
+                    <input id="Display[display_special_page0]" name="Display[display_special_page]" value="0" type="radio" checked>
+                    <label for="Display[display_special_page0]">最新の投稿を表示する</label>
+                </div>
+            </div>
+            <div class="col-md-offset-1">
+                <label>デフォルトで表示するタグ</label>
+                <select id="Display[default_tag]" class="form-control" name="Display[default_tag]">
+                    <option value="0">全て</option>
+                    <?php foreach($this->tags as $tag): ?>
+                    <option value="<?= $tag->id ?>" <?= $this->checkBoxInput(isset($post['default_tag']) ? $post['default_tag'] : null, isset($this->data->default_tag) ? $this->data->default_tag : null, $tag->id, "selected") ?> ><?= $tag->name ?></option>
+                    <?php endforeach ?>
+                </select>
+            </div>
+
+            <div class="col-md-12">
+                <div class="radio custom-radio">
+                    <input
+                        id="Display[display_special_page1]"
+                        name="Display[display_special_page]"
+                        value="1"
+                        type="radio" <?= $this->checkBoxInput($post['display_special_page'], isset($this->data->display_special_page) ? $this->data->display_special_page : null, 1, "checked") ?>>
+                    <label for="Display[display_special_page1]">指定ページを表示する</label>
+                </div>
+            </div>
+
+            <div class="col-md-offset-1">
+                <input
+                    id="Display[url_special_page]"
+                    class="form-control"
+                    name="Display[url_special_page]"
+                    value="<?= $this->checkInput(isset($post['url_special_page']) ? $post['url_special_page'] : null, isset($this->data->url_special_page) ? $this->data->url_special_page : null, null) ?>"
+                    maxlength="255">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="h4">先頭に表示する設定</label>
+            <div class="col-md-12">
+                <div class="checkbox custom-checkbox">
+                    <input type="hidden" name="Display[slide_enable]" value="0">
+                    <input id="Display[slide_enable]" type="checkbox" value="1" name="Display[slide_enable]" <?= isset($this->data->slide_enable) ? $this->checkBoxInput($post['slide_enable'], isset($this->data->slide_enable) ? $this->data->slide_enable : null, 1, "checked") : "checked" ?> >
+                    <label for="Display[slide_enable]">スライド（投稿を先頭に表示）を有効にする</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="h4">1ページに表示する最大投稿数</label>
+            <div class="col-md-offset-1">
+                <input type="text" class="form-control" name="Display[post_per_page]" value="<?= $this->checkInput($post['post_per_page'], isset($this->data->post_per_page) ? $this->data->post_per_page : null, null) ?>" maxlength="256">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-1">
+                <div class="form-buttons">
+                    <div class="loading-indicator-container">
+                        <button
+                                type="submit"
+                                class="btn btn-primary">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<?= e(trans('backend::lang.form.create')) ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                        <button
+                                type="reset"
+                                class="btn btn-primary">
+                            <?= e(trans('backend::lang.form.cancel')) ?>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </form>
+</div>
+
+<?= $this->makePartial('logo_display') ?>
+<?php else: ?>
+<p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+<?php endif ?>
+
+<script type="text/javascript">
+
+    var event = $('input[name="Display[display_special_page]"]:checked').val();
+
+    checkIsCheckedRadio(event);
+
+    $('input[name="Display[display_special_page]"]').click(function () {
+        event = $('input[name="Display[display_special_page]"]:checked').val();
+        checkIsCheckedRadio(event);
+    });
+
+    function checkIsCheckedRadio(val) {
+        if (val == 0) {
+            $('input[name="Display[url_special_page]"]').attr('disabled', 'true');
+            $('select[name="Display[default_tag]"]').removeAttr('disabled', 'disabled');
+
+        } else {
+            $('input[name="Display[url_special_page]"]').removeAttr('disabled');
+            $('select[name="Display[default_tag]"]').attr('disabled', 'disabled');
+        }
+    }
+</script>

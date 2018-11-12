@@ -1,0 +1,15 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: backend::lang.menu.title
+list: ~/modules/backend/models/menu/columns.yaml
+modelClass: Backend\Models\Menu
+recordUrl: backend/menu/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 20
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

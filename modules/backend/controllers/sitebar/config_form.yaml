@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: サイドバーウィジット
+form: ~/modules/backend/models/sitebar/fields.yaml
+modelClass: Backend\Models\SiteBar
+defaultRedirect: backend/sitebar
+
+create:
+    redirect: backend/sitebar/
+    redirectClose: backend/sitebar
+
+update:
+    redirect: backend/sitebar
+    redirectClose: backend/sitebar

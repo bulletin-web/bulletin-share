@@ -1,0 +1,61 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><?= e(trans('system::lang.system.categories.todos')) ?></li>
+    <li><?= e(trans($this->pageTitle)) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+<?= Form::open(['class'=>'layout']) ?>
+
+<div class="layout-row">
+    <div class="row" id="approve_list">
+        <div class="col-lg-4">
+            <?= $this->formRenderField('name') ?>
+        </div>
+        <div class="col-lg-12"></div>
+        <div class="col-lg-8">
+            <?= $this->formRenderField('approve_list_update') ?>
+        </div>
+        <div class="col-lg-8">
+            <?= $this->formRenderField('description') ?>
+        </div>
+        <div class="col-lg-8">
+        </div>
+        <div class="col-lg-8">
+            <div class="form-buttons">
+                <div class="loading-indicator-container">
+                    <button
+                            type="submit"
+                            data-request="onSave"
+                            data-hotkey="ctrl+s, cmd+s"
+                            data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                            class="btn btn-primary">
+                        <?= e(trans('backend::lang.form.save')) ?>
+                    </button>
+                    <button
+                            type="reset"
+                            class="btn btn-primary">
+                        <?= e(trans('backend::lang.form.cancel')) ?>
+                    </button>
+                    <button style="background: #c82a1c"
+                            type="button"
+                            class="btn btn-danger pull-right"
+                            data-request="onDelete"
+                            data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
+                            data-request-confirm="<?= e(trans('backend::lang.menu.delete_confirm')) ?>">
+                        <?= e(trans('backend::lang.form.delete')) ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?= Form::close() ?>
+
+<?php else: ?>
+<p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+<p><a href="<?= Backend::url('backend/workflow') ?>" class="btn btn-default"><?= e(trans('backend::lang.workflow.return_list')) ?></a></p>
+<?php endif ?>

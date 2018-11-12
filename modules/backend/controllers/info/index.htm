@@ -1,0 +1,289 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><?= e(trans('system::lang.system.categories.website')) ?></li>
+    <li>サイト基本情報</li>
+</ul>
+<?php Block::endPut() ?>
+<?=$this->makePartial('message_template') ?>
+<?php $post = isset(Session::get('error')['posts']) ? Session::get('error')['posts'] : null ?>
+<?php if (!$this->fatalError): ?>
+<?= Form::open(['class'=>'layout', 'method' => 'POST', 'url' => Backend::url('backend/info/store')]) ?>
+<div class="col-lg-8 col-sm-12 col-sx-12">
+    <div class="row">
+        <h4>公開情報</h4>
+        <div class="col-lg-9 col-sm-12 col-xs-12">
+            <div class="form-group  radio-field span-full" data-field-name="status" id="Form-field-Info-status-group">
+                <label for="Form-field-Info-status">ステータス</label><br>
+                <!-- Radio List -->
+                <div class="radio custom-radio radio-inline">
+                    <input id="8d4738a8070a7bd56e9debbe89b1bf61" name="Info[status]" value="1" type="radio" checked >
+                    <label for="8d4738a8070a7bd56e9debbe89b1bf61">公開</label>
+                </div>
+                <div class="radio custom-radio radio-inline">
+                    <input id="4c4d8b36efe9919f3282d0004311e832" name="Info[status]" value="2" type="radio" <?= $this->checkInput($post['status'], isset($this->data->status) ? $this->data->status : null, 2) ?> >
+                    <label for="4c4d8b36efe9919f3282d0004311e832">準備中（メンテナンス)</label>
+                </div>
+            </div>
+            <div class="form-group  text-field span-full" data-field-name="site_name" id="Form-field-Info-site_name-group">
+                <label for="Form-field-Info-site_name">サイト名</label>
+                <!-- Text -->
+                <input type="text" name="Info[site_name]" id="Form-field-Info-site_name" value="<?= $this->checkInput($post['site_name'], isset($this->data->site_name) ? $this->data->site_name : null) ?>"  class="form-control" autocomplete="off" maxlength="255">
+            </div>
+            <div class="form-group  text-field span-full" data-field-name="site_url" id="Form-field-Info-site_url-group">
+                <label for="Form-field-Info-site_url">サイトURL</label>
+                <!-- Text -->
+                <input type="text" name="Info[site_url]" id="Form-field-Info-site_url" value="<?= $this->checkInput($post['site_url'], isset($this->data->site_url) ? $this->data->site_url : null) ?>"  class="form-control" autocomplete="off" maxlength="255">
+            </div>
+            <div class="form-group  text-field span-full" data-field-name="copyright" id="Form-field-Info-copyright-group">
+                <label for="Form-field-Info-copyright">コピーライト</label>
+                <!-- Text -->
+                <input type="text" name="Info[copyright]" id="Form-field-Info-copyright" value="<?= $this->checkInput($post['copyright'], isset($this->data->copyright) ? $this->data->copyright : null) ?>"  class="form-control" autocomplete="off" maxlength="255">
+            </div>
+            <div class="form-group  checkbox-field span-full" data-field-name="is_limit_ip" id="Form-field-Info-is_limit_ip-group">
+                <!-- Checkbox -->
+                <div class="checkbox custom-checkbox" tabindex="0">
+                    <input type="hidden" name="Info[is_limit_ip]" value="0">
+                    <input type="checkbox" id="Form-field-Info-is_limit_ip" name="Info[is_limit_ip]" value="1" <?= $this->checkInput($post['is_limit_ip'], isset($this->data->is_limit_ip) ? $this->data->is_limit_ip : null, 1) ?> >
+                    <label for="Form-field-Info-is_limit_ip">IPアドレス制限</label>
+                </div>
+                <div id="limit_ip">
+                    <div class="form-group text-field span-full" data-field-name="ip_address" id="Form-field-Info-ip_address-group">
+                        <label for="Form-field-Info-username_certificate">IPアドレス制限</label>
+                        <button style="float: right" id="add-ip" class="btn btn-primary btn-add btn-xs" onclick="addItem(event, this)" disabled>
+                            <i class="icon-plus" style="color: #fff"></i> さらに追加する
+                        </button>
+                        <!-- Text -->
+                        <?php if (isset($post['ip_address']) && count($post['ip_address'])) {
+                            foreach($post['ip_address'] as $item) {
+                        ?>
+                            <input type="text" name="Info[ip_address][]" value="<?= $item ?>" class="form-control list-ip-limits" autocomplete="off" maxlength="255">
+                        <?php }
+                        } elseif (isset($this->data) && !is_null($this->data->ip_address)) {
+                            foreach(json_decode($this->data->ip_address) as $item) {
+                        ?>
+                            <input type="text" name="Info[ip_address][]" value="<?= $item ?>" class="form-control list-ip-limits" autocomplete="off" maxlength="255">
+                        <?php }
+                        } else { ?>
+                            <input type="text" name="Info[ip_address][]" class="form-control list-ip-limits" autocomplete="off" maxlength="255">
+                        <?php } ?>
+
+                        <button style="float: left; margin-top: 13px" id="remove-ip" class="btn btn-primary btn-xs btn-remove hide" onclick="removeItem(event, this)" disabled>
+                            <i class="icon-minus" style="color: #fff"></i> アイテムを削除する
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  checkbox-field span-full" data-field-name="is_certificate" id="Form-field-Info-is_certificate-group">
+                <!-- Checkbox -->
+                <div class="checkbox custom-checkbox" tabindex="0">
+                    <input type="hidden" name="Info[is_certificate]" value="0">
+                    <input type="checkbox" id="Form-field-Info-is_certificate" name="Info[is_certificate]" value="1" <?= $this->checkInput($post['is_certificate'], isset($this->data->is_certificate) ? $this->data->is_certificate : null, 1) ?> >
+                    <label for="Form-field-Info-is_certificate">認証方法（サイトURL設定値以下のディレクトリへのアクセス権限)</label>
+                </div>
+                <div id="auth_certificate">
+                    <div class="form-group  text-field span-left   " data-field-name="username_certificate" id="Form-field-Info-username_certificate-group">
+                        <label for="Form-field-Info-username_certificate">ユーザー名</label>
+                        <!-- Text -->
+                        <input type="text" name="Info[username_certificate]" id="Form-field-Info-username_certificate" value="<?= $this->checkInput(isset($post['username_certificate']) ? $post['username_certificate'] : null, isset($this->data->username_certificate) ? $this->data->username_certificate : null) ?>"  class="form-control" autocomplete="off" maxlength="255">
+                    </div>
+                    <div class="form-group  text-field span-right   " data-field-name="password_certificate" id="Form-field-Info-password_certificate-group">
+                        <label for="Form-field-Info-password_certificate">パスワード</label>
+                        <!-- Text -->
+                        <input type="password" name="Info[password_certificate]" id="Form-field-Info-password_certificate" value="<?= $this->checkInput(isset($post['password_certificate']) ? $post['password_certificate'] : null, isset($this->data->password_certificate) ? $this->data->password_certificate : null) ?>"  class="form-control" autocomplete="off" maxlength="255">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  checkbox-field span-full" data-field-name="is_basicauth" id="Form-field-Info-is_basicauth-group">
+                <!-- Checkbox -->
+                <div class="checkbox custom-checkbox" tabindex="0">
+                    <input type="hidden" name="Info[is_basicauth]" value="0">
+                    <input type="checkbox" id="Form-field-Info-is_basicauth" name="Info[is_basicauth]" value="1" <?= $this->checkInput($post['is_basicauth'], isset($this->data->is_basicauth) ? $this->data->is_basicauth : null, 1) ?>>
+                    <label for="Form-field-Info-is_basicauth">個別認証</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br><h4>管理者情報</h4>
+        <div class="col-lg-9 col-sm-12 col-xs-12">
+            <div class="form-group  text-field span-full" data-field-name="admin_email" id="Form-field-Info-admin_email-group">
+                <label for="Form-field-Info-admin_email">メールアドレス</label>
+                <!-- Text -->
+                <input type="text" name="Info[admin_email]" id="Form-field-Info-admin_email" value="<?= $this->checkInput($post['admin_email'], isset($this->data->admin_email) ? $this->data->admin_email : null) ?>"  class="form-control" autocomplete="off" maxlength="255">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br><h4>インターネット設定</h4>
+        <div class="col-lg-9 col-sm-12 col-xs-12">
+            <div class="form-group  radio-field span-full" data-field-name="searchable" id="Form-field-Info-searchable-group">
+                <label for="Form-field-Info-searchable">検索設定</label><br>
+                <!-- Radio List -->
+                <div class="radio custom-radio radio-inline">
+                    <input id="52aa628ccda34153d8c10b2aa974366f" name="Info[searchable]" value="0" type="radio" checked >
+                    <label for="52aa628ccda34153d8c10b2aa974366f">すべて拒否</label>
+                </div>
+                <div class="radio custom-radio radio-inline">
+                    <input id="aa0be64bf068907f728661204a41abd2" name="Info[searchable]" value="1" type="radio" <?= $this->checkInput($post['searchable'], isset($this->data->searchable) ? $this->data->searchable : null, 1) ?> >
+                    <label for="aa0be64bf068907f728661204a41abd2">許可</label>
+                </div>
+            </div>
+            <label>SNS設定</label>
+            <div class="col-md-12">
+                <div class="form-group  checkbox-field span-left   " data-field-name="accept_facebook" id="Form-field-Info-accept_facebook-group">
+                    <!-- Checkbox -->
+                    <div class="checkbox custom-checkbox" tabindex="0">
+                        <input type="hidden" name="Info[accept_facebook]" value="0">
+                        <input type="checkbox" id="Form-field-Info-accept_facebook" name="Info[accept_facebook]" value="1" <?= $this->checkInput($post['accept_facebook'], isset($this->data->accept_facebook) ? $this->data->accept_facebook : null, 1) ?> >
+                        <label for="Form-field-Info-accept_facebook">Facebook許可</label>
+                    </div>
+                </div>
+                <div class="form-group  checkbox-field span-right   " data-field-name="accept_twitter" id="Form-field-Info-accept_twitter-group">
+                    <!-- Checkbox -->
+                    <div class="checkbox custom-checkbox" tabindex="0">
+                        <input type="hidden" name="Info[accept_twitter]" value="0">
+                        <input type="checkbox" id="Form-field-Info-accept_twitter" name="Info[accept_twitter]" value="1" <?= $this->checkInput($post['accept_twitter'], isset($this->data->accept_twitter) ? $this->data->accept_twitter : null, 1) ?> >
+                        <label for="Form-field-Info-accept_twitter">Twitter許可</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  textarea-field span-full    " data-field-name="access_analysis_tag" id="Form-field-Info-access_analysis_tag-group">
+                <label for="Form-field-Info-access_analysis_tag">アクセス解析タグ</label>
+                <!-- Textarea -->
+                <textarea name="Info[access_analysis_tag]" id="Form-field-Info-access_analysis_tag" autocomplete="off" class="form-control field-textarea size-small" ><?= $this->checkInput($post['access_analysis_tag'], isset($this->data->access_analysis_tag) ? $this->data->access_analysis_tag : null) ?></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row hidden">
+        <br><h4>契約情報</h4>
+        <div class="col-lg-9 col-sm-12 col-xs-12">
+            <div class="form-group  text-field span-full" data-field-name="license" id="Form-field-Info-license-group">
+                <label for="Form-field-Info-license">ライセンス番号</label>
+                <!-- Text -->
+                <input type="text" name="Info[license]" id="Form-field-Info-license" value="<?= $this->checkInput($post['license'], isset($this->data->license) ? $this->data->license : null) ?>" class="form-control" autocomplete="off" maxlength="255">
+            </div>
+        </div>
+    </div>
+    <div class="row hidden">
+        <div class="col-lg-9 col-sm-12 col-xs-12">
+            <div class="col-md-4">
+                <span>ご契約のライセンス数</span>
+            </div>
+            <div class="col-md-4">
+                <span>nn ユーザー</span>
+            </div>
+            <div class="col-md-4">
+                <div class="form-buttons">
+                    <div class="loading-indicator-container">
+                        <button disabled type="submit" class="btn btn-default">追加で購入する</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button
+                        type="submit"
+                        class="btn btn-primary">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<?= e(trans('backend::lang.form.create')) ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                </button>
+                <button
+                        type="reset"
+                        class="btn btn-primary"
+                        id="btn-reset">
+                    <?= e(trans('backend::lang.form.cancel')) ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?= Form::close() ?>
+
+<?php else: ?>
+<p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+<?php endif ?>
+
+<script type="text/javascript">
+    $( document ).ready(function () {
+        $('#btn-reset').click(function() {
+            location.reload();
+        });
+
+        activeRemoveIp();
+    });
+
+    var certificate = $('input[name="Info[is_certificate]"]:checked').val();
+    checkCertificate(certificate);
+    $('input[name="Info[is_certificate]"]').click(function () {
+        certificate = $('input[name="Info[is_certificate]"]:checked').val();
+        checkCertificate(certificate);
+    });
+
+    function checkCertificate(val) {
+        if (val == 1) {
+            $('#Form-field-Info-username_certificate').removeAttr('disabled');
+            $('#Form-field-Info-password_certificate').removeAttr('disabled');
+        } else {
+            $('#Form-field-Info-username_certificate').attr('disabled', 'true');
+            $('#Form-field-Info-password_certificate').attr('disabled', 'true');
+        }
+    }
+
+    var limit_ip = $('input[name="Info[is_limit_ip]"]:checked').val();
+    checkLimitIp(limit_ip);
+    $('input[name="Info[is_limit_ip]"]').click(function () {
+        limit_ip = $('input[name="Info[is_limit_ip]"]:checked').val();
+        checkLimitIp(limit_ip);
+    });
+
+    function checkLimitIp(val) {
+        if (val == 1) {
+            $('.list-ip-limits').each(function () {
+                $(this).removeAttr('disabled');
+            });
+            
+            $('#add-ip, #remove-ip').removeAttr('disabled');
+        } else {
+            $('.list-ip-limits').each(function () {
+                $(this).attr('disabled', 'true');
+            });
+
+            $('#add-ip, #remove-ip').attr('disabled', 'true');
+        }
+    }
+
+    function addItem(event, element) {
+        event.preventDefault();
+        $('<input type="text" name="Info[ip_address][]" class="form-control list-ip-limits" autocomplete="off" maxlength="255">')
+            .insertAfter($(element).parent().find('input:last'));
+        activeRemoveIp();
+
+        return false;
+    }
+
+    function removeItem(event, element) {
+        event.preventDefault();
+
+        var number = $(element).parent().find('input').length;
+        if (number > 1) {
+            $(element).parent().find('input:last').remove();
+        }
+        activeRemoveIp();
+
+        return false;
+    }
+
+    function activeRemoveIp() {
+        var ip_number = $('.list-ip-limits').length;
+        if (ip_number > 1) {
+            $('#remove-ip').removeAttr('disabled').removeClass('hide');
+        } else {
+            $('#remove-ip').attr('disabled', 'true').addClass('hide');
+        }
+    }
+
+</script>

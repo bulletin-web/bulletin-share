@@ -1,0 +1,149 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    workflow_id:
+        label: false
+        span: full
+        showSearch: false
+#        type: partial
+#        path: ~/plugins/rainlab/blog/controllers/posts/_workflow_id.htm
+        type: dropdown
+        emptyOption: ワークフローを選択してください。
+
+    workflow_status:
+        label: false
+        span: right
+        type: partial
+        path: ~/plugins/rainlab/blog/controllers/posts/_workflow_status.htm
+    category_id:
+        label: false
+        span: full
+        type: dropdown
+        showSearch: false
+        emptyOption: カテゴリーを選択してください。
+#        type: partial
+#        path: ~/plugins/rainlab/blog/controllers/posts/_category_id.htm
+    tags:
+        type: partial
+        path: ~/plugins/rainlab/blog/models/post/_tags_fields.htm
+        span: left
+        label: false
+    featured_image:
+       label: rainlab.blog::lang.post.featured_images
+       type: mediafinder
+       mode: image
+       span: left
+    title:
+        label: false
+        type: partial
+        path: ~/plugins/rainlab/blog/controllers/posts/_title.htm
+        span: left
+
+    slug:
+        label: false
+        type: partial
+        path: ~/plugins/rainlab/blog/controllers/posts/_slug.htm
+        span: right
+
+    content:
+        type: partial
+        path: ~/plugins/rainlab/blog/models/post/_content_field.htm
+
+    has_comment:
+        type: partial
+        path: ~/plugins/rainlab/blog/controllers/posts/_has_comment.htm
+    published_at:
+        span: left
+        cssClass: checkbox-align
+        type: datepicker
+        mode: datetime
+    status:
+        label: 投稿を関連付けるタグを選択してください。
+        span: left
+        type: dropdown
+        disabled: true
+        cssClass: hidden
+
+#    workflow_id:
+#        label: rainlab.blog::lang.post.reviewer_id
+#        span: left
+#        type: dropdown
+#        emptyOption: ワークフローを選択してください。
+#        showSearch: false,
+#    title:
+#        label: rainlab.blog::lang.post.title
+#        span: left
+#        placeholder: rainlab.blog::lang.post.title_placeholder
+#
+#    slug:
+#        label: rainlab.blog::lang.post.slug
+#        span: right
+#
+    toolbar:
+        type: partial
+        path: post_toolbar
+        cssClass: collapse-visible
+#
+#    content:
+#        type: partial
+#        path: ~/plugins/rainlab/blog/models/post/_content_field.htm
+#
+#    category_id:
+#        type: dropdown
+#        label: rainlab.blog::lang.post.categories_comment
+#        span: left
+#        emptyOption: カテゴリーを選択してください。
+#        showSearch: false
+#
+#    tags:
+#        type: partial
+#        path: ~/plugins/rainlab/blog/models/post/_tags_fields.htm
+#        span: left
+#        label: rainlab.blog::lang.post.tags_comment
+#
+#    status:
+#        label: 投稿を関連付けるタグを選択してください。
+#        span: left
+#        type: dropdown
+#        disabled: true
+#        cssClass: hidden
+#
+    action:
+        span: left
+        type: dropdown
+        emptyOption: アクションを選択してください。
+        showSearch: false
+#
+#    published_at:
+#        span: left
+#        cssClass: checkbox-align
+#        type: datepicker
+#        mode: datetime
+    is_slide_show:
+        label: rainlab.blog::lang.post.is_slide_show
+        span: left
+        type: checkbox
+        cssClass: post_slide_show
+        default: true
+#    featured_image:
+#        label: rainlab.blog::lang.post.featured_images
+#        type: fileupload
+#        mode: image
+#        span: left
+#
+#    is_page:
+#        label: 固定ページとして設定
+#        type: checkbox
+#        span: right
+#
+#    has_comment:
+#        label: rainlab.blog::lang.post.has_comment
+#        span: left
+#        type: radio
+#        default: 1
+#    excerpt:
+#        type: richeditor
+#        cssClass: hidden

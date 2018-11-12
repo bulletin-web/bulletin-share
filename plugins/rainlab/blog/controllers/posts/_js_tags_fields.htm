@@ -1,0 +1,20 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#parentTagDisplay').delegate('span', 'click', function () {
+            var element = $(this);
+            var tag_id = parseInt(element.data('id'));
+            var style = element.attr('style');
+            if (tag_id) {
+                if (style.indexOf('#c8c8c8') != -1) {
+                    style = style.replace('#c8c8c8', '#ffffff');
+                    $('#listTagToInsert').append('<input class="hidden" name="Post[tags][]" value="' + tag_id + '">');
+                    $('#listParentTag').append('<input class="hidden" name="Post[parent_tag_list][]" value="' + tag_id + '">');
+                } else {
+                    style = style.replace('#ffffff', '#c8c8c8');
+                    $('#listTagToInsert input[value='+ tag_id +'], #listParentTag input[value='+ tag_id +']').remove();
+                }
+                element.attr('style', style);
+            }
+        });
+    });
+</script>

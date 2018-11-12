@@ -1,0 +1,121 @@
+<?php if($this->post->type == 1 || $this->post->type == 2): ?>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $('#Form-field-SiteBar-banner_image-group').remove();
+    });
+</script>
+<?php endif ?>
+
+<?php if($this->post->type == 1): ?>
+<h5>投稿一覧</h5>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <td width="10%"></td>
+        <td width="65">タイトル</td>
+        <td width="15%">表示側</td>
+        <td width="10%"></td>
+    </tr>
+    </thead>
+    <tbody id="post_list">
+        <?php if(count($this->listRanking)): ?>
+            <?php foreach($this->listRanking as $post): ?>
+            <tr>
+                <td class="td"><input class="checkbox-custom checkbox-css" checked disabled type="checkbox"></td>
+                <td class="td"><?= $post->title ?></td>
+                <td><input name="SiteBar[post][<?= $post->id ?>]" class="form-control location" value="<?= array_search($post->id, $this->posts) ?>" maxlength="3"></td>
+                <td><button data-title="<?= $post->title ?>" data-id="<?= $post->id ?>" type="button" style="background: #d9534f" class="btn btn-danger delete-post"><i class="icon-trash"></i></button></td>
+            </tr>
+            <?php endforeach ?>
+        <?php endif ?>
+    </tbody>
+</table>
+
+<span id="addParentTag" class="btn btn-primary" data-toggle="modal" data-target="#postsModal"><i style="color: #ffffff" class="icon-plus">&nbsp;</i>追加</span>
+
+<div id="postsModal" class="modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">投稿リスト</h4>
+            </div>
+            <div id="listPostBody" class="modal-body">
+                <?php if($this->posts): ?>
+                <?php foreach($this->listCurrent as $post): ?>
+                <span data-id="<?= $post->id ?>"
+                      data-title="<?= $post->title ?>"
+                      style="margin-bottom: 5px;
+                        margin-right: 5px;
+                        background: #1991d1;
+                        white-space: normal;
+                        word-break: break-all"
+                      class="btn btn-default post_bar"><?= $post->title ?>
+                    </span>
+                <?php endforeach ?>
+                <?php endif ?>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<?= $this->makePartial('js_site_bar') ?>
+<?php endif ?>
+
+<?php if($this->post->type == 2): ?>
+<?php $content = json_decode($this->post->content_type) ?>
+<div class="form-group">
+    <span style="margin-right: 10px">記事表示件数</span>
+    <input name="SiteBar[limit]" style="padding: 5px; color: #385487" type="text" value="<?= $content->limit ?>">
+    <span style="margin-left: 5px">件</span> <span style="font-size: 22px; margin-right: 20px;">※</span> 最大５件
+</div>
+<div class="form-group">
+    <div class="checkbox custom-checkbox" tabindex="0">
+        <input type="hidden" name="SiteBar[view]" value="0">
+        <input type="checkbox" id="Form-field-Sitebar-view" name="SiteBar[view]" <?= $content->view ? 'checked' : '' ?> value="1">
+        <label for="Form-field-Sitebar-view">アクセス数を表示</label>
+    </div>
+</div>
+<?php endif ?>
+
+<?php if($this->post->type == 3): ?>
+<?php $content = json_decode($this->post->content_type) ?>
+<div class="form-group">
+    <label>カテゴリ</label>
+    <select id="sitebar_category" name="SiteBar[category]" class="form-control">
+        <option value="">カテゴリを選択してください</option>
+        <?php if ($this->category->count()):?>
+        <?php foreach($this->category as $category): ?>
+        <option <?= isset($content->category) && $category->id == $content->category ? 'selected' : '' ?> value="<?= $category->id ?>"><?= $category->name ?></option>
+        <?php endforeach ?>
+        <?php endif ?>
+    </select>
+</div>
+<div class="form-group">
+    <label>タグ</label>
+    <select id="sitebar_tag" name="SiteBar[tag]" class="form-control">
+        <option value="">タグを選択してください</option>
+        <?php if ($this->tag->count()):?>
+        <?php foreach($this->tag as $tag): ?>
+        <option <?= isset($content->tag) && $tag->id == $content->tag ? 'selected' : '' ?> value="<?= $tag->id ?>"><?= $tag->name ?></option>
+        <?php endforeach ?>
+        <?php endif ?>
+    </select>
+</div>
+<div class="form-group">
+    <div class="checkbox custom-checkbox" tabindex="0">
+        <input type="hidden" name="SiteBar[post_newest]" value="0">
+        <input <?= isset($content->post_newest) && $content->post_newest == 1 ? 'checked' : '' ?> type="checkbox" id="Form-field-Sitebar-view" name="SiteBar[post_newest]" value="1">
+        <label for="Form-field-Sitebar-view">カテゴリ。タグの最新の投稿にリンク</label>
+    </div>
+</div>
+<div class="form-group">
+    <label>リンクを設定</label>
+    <input type="text" class="form-control" name="SiteBar[link]" value="<?= isset($content->link) ? $content->link : ''?>">
+</div>
+<?= $this->makePartial('js_banner') ?>
+<?php endif ?>

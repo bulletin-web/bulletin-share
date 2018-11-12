@@ -1,0 +1,28 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: rainlab.blog::lang.category.name
+        placeholder: rainlab.blog::lang.category.name_placeholder
+        span: left
+
+    slug:
+        label: rainlab.blog::lang.category.url
+        span: right
+        placeholder: rainlab.blog::lang.category.slug_placeholder
+        preset: name
+
+    color:
+        label: rainlab.blog::lang.category.color
+        type: colorpicker
+        span: full
+
+    description:
+        label: rainlab.blog::lang.category.description
+        size: large
+        oc.commentPosition: ''
+        span: full
+        type: textarea

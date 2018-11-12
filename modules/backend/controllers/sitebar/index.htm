@@ -1,0 +1,41 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><?= e(trans('system::lang.system.categories.plugin_manager')) ?></li>
+    <li><?= e(trans('サイドバーウィジット管理')) ?></li>
+</ul>
+<?php Block::endPut() ?>
+<div id="body-sitebar">
+<?= $this->listRender() ?>
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+        <button
+                type="button"
+                data-request="onSave"
+                onclick="var array = [];$('.location-sitebar').each(function(index, el){
+                        array[$(el).data('id')] = $(el).val();
+                    });$(this).data('request-data', {
+                    checked: $('.control-list').listWidget('getChecked'),
+                    location: array
+                })"
+                data-request-data="close:1"
+                data-hotkey="ctrl+enter, cmd+enter"
+                data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                class="btn btn-primary">
+            <?= e(trans('backend::lang.form.create')) ?>
+        </button>
+        <button
+                type="reset"
+                class="btn btn-primary">
+            <?= e(trans('backend::lang.form.cancel')) ?>
+        </button>
+    </div>
+</div>
+</div>
+
+<?= $this->makePartial('message_template') ?>
+
+<script>
+    $('#body-sitebar').delegate('button[type=reset]', 'click', function () {
+        $('#body-sitebar').load(location.href + " #body-sitebar>*","");
+    });
+</script>

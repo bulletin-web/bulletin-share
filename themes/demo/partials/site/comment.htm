@@ -1,0 +1,52 @@
+{% if hasComment %}
+<div class="row">
+    {% if Comment.data.success %}
+    <div class="success"></div>
+    {% endif %}
+    <div class="col-md-12">
+        {% if post.comments.count %}
+        <div class="well">
+            {% for comment in post.comments %}
+            <article style="display:none;">
+            <b>{{ comment.name }}: </b><span>{{ comment.created_at|date('Y.m.d - H:i') }}</span>
+            <p style="word-wrap: break-word;" class="more">{{ Comment.replaceTextBlackList(comment.content) }}</p>
+            </article>
+            {% endfor %}
+            {% if post.comments.count > 8 %}
+            <a class="btn btn-info btn-block" href="#" id="loadMore">Load More</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    {% if Comment.data.error %}
+    <div class="col-md-12 error">
+        <div class="alert alert-danger">
+            {% for value in Comment.data.error.getMessages %}
+            {{ value[0] }}<br/>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="col-md-12">
+        {{ form_open({ request:'store'}) }}
+            <fieldset>
+                <div class="form-group">
+                    <input name="name" class="form-control" placeholder="名前" type="text" maxlength="64" value="{{ Comment.data.post.name }}">
+                </div>
+                <div class="form-group">
+                    <input name="email" class="form-control" placeholder="電子メール" type="text" maxlength="64" value="{{ Comment.data.post.email }}">
+                </div>
+                <div class="form-group">
+                    <textarea name="content" class="form-control" placeholder="内容" rows="5">{% if Comment.data.error %}{{ Comment.data.post.content }}{% endif %}</textarea>
+                </div>
+                <input name="post_id" value="{{ post_id }}" hidden="hidden">
+            </fieldset>
+            <button class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp;&nbsp;保存&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            <button type="reset" class="btn btn-default">リセット</button>
+        {{ form_close() }}
+    </div>
+</div>
+<div style="padding: 5px;"></div>
+{% endif %}

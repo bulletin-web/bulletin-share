@@ -1,0 +1,64 @@
+title = "Search"
+url = "/blog/search/:search?/:page?"
+layout = "blog-layout"
+
+[blogPosts]
+search = {{ :search }}
+==
+function onHandleForm() {
+	$search = post('search') ? trim(strip_tags(post('search'))) : '';
+	if ($search) {
+		return Redirect::to(url('/blog/search/' . $search . '/1'));
+	}
+}
+
+function onEnd() {
+	$properties = $this->blogPosts->getProperties();
+	$this['search'] = $properties['search'];
+	$this->page->title = $this['search'];
+
+}
+==
+<link rel="stylesheet" href="{{ 'assets/css/common_search.css'|theme }}">
+<div class="container">
+	<section class="filter-block">
+		<h3>「{{ search }}」に関する記事の検索結果 / {{ posts.total }}件</h3>
+	</section>
+
+	{% set posts = blogPosts.posts %}
+	<section class="category-list">
+		{% if posts.count %}
+		<div class="row search">
+			<ul class="list-item">
+				{% for post in posts %}
+				<li class="col-md-3 col-sm-4 col-xs-6">
+					<div class="card">
+						<a href="/blog/post/{{ post.id }}" class="card-main">
+							<div class="card-image" style="background-image:url('{{ post.featured_image.path }}')"></div>
+
+							<span class="card-cate">
+								<div style="background-color: {{ blogPosts.getColorCategory(post.id) }};">{{ blogPosts.getNameCategory(post.id) }}</div>
+								<div style="background-color: #ddd;">{{ blogPosts.getNameFirstTag(post.id) }}</div>
+							</span>
+							<div class="card-body">
+								<p class="card-description">{{ str_limit(post.title, 80) }}</p>
+								<span class="card-time"><i class="ico-clock2"></i> {{ post.published_at|date('H:i') }}</span>
+								<span class="card-date"><i class="ico-calendar-full"></i> {{ post.published_at|date('Y.m.d') }}</span>
+							</div>
+
+						</a>
+						<div class="line" style="background-color: {{ blogPosts.getColorOfPost(post.id) }};"></div>
+					</div>
+				</li>
+				{% else %}
+				<li class="no-data">{{ noPostsMessage }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		{% partial 'site/pagination' posts=posts %}
+		{% else %}
+		{% content 'no-data.htm' %}
+		{% endif %}
+	</section>
+</div>

@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: backend::lang.menu.title
+form: ~/modules/backend/models/menu/fields.yaml
+modelClass: Backend\Models\Menu
+defaultRedirect: backend/menu
+
+create:
+    redirect: backend/menu/update/:id
+    redirectClose: backend/menu
+
+update:
+    redirect: backend/menu
+    redirectClose: backend/menu

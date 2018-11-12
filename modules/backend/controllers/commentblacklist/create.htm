@@ -1,0 +1,42 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><?= e(trans('backend::lang.comment.name')) ?></li>
+    <li><?= e(trans('backend::lang.comment.blacklist')) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+<?= Form::open(['class'=>'layout']) ?>
+
+<div class="col-md-6">
+    <div class="layout-row">
+        <?= $this->formRender() ?>
+    </div>
+
+    <div class="form-buttons">
+        <div class="loading-indicator-container">
+            <button
+                    type="button"
+                    data-request="onSave"
+                    data-request-data="close:1"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-load-indicator="<?= e(trans('backend::lang.form.creating')) ?>"
+                    class="btn btn-primary">
+                &nbsp;&nbsp;&nbsp;&nbsp;<?= e(trans('backend::lang.form.create')) ?>&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
+            <button
+                    type="reset"
+                    class="btn btn-primary">
+                <?= e(trans('backend::lang.form.cancel')) ?>
+            </button>
+        </div>
+    </div>
+</div>
+
+<?= Form::close() ?>
+
+<?php else: ?>
+<p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
+<p><a href="<?= Backend::url('backend/commentblacklist') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.group.return')) ?></a></p>
+<?php endif ?>

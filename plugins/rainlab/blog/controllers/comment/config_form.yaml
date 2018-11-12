@@ -1,0 +1,12 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: コメント
+form: ~/plugins/rainlab/blog/models/comment/fields.yaml
+modelClass: RainLab\Blog\Models\Comment
+defaultRedirect: rainlab/blog/comment
+
+update:
+    redirect: rainlab/blog/comment
+    redirectClose: rainlab/blog/comment

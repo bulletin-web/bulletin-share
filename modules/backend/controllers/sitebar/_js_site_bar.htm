@@ -1,0 +1,31 @@
+<script>
+    $('#body-sitebar').delegate('.post_bar', 'click', function () {
+        var $post = $(this);
+        var html = '<tr>' +
+            '<td class="td"><input class="checkbox-custom checkbox-css" checked disabled type="checkbox"></td>' +
+            '<td class="td">'+ $post.data("title") +'</td>' +
+            '<td><input name="SiteBar[post]['+ $post.data("id") +']" class="form-control location" maxlength="3"></td>' +
+            '<td><button data-title="' + $post.data("title") + '" data-id="'+ $post.data("id") +'" type="button" style="background: #d9534f" class="btn btn-danger delete-post"><i class="icon-trash"></i></button></td>' +
+            '</tr>';
+        $('#post_list').append(html);
+        $post.remove();
+    });
+
+    $('#body-sitebar').delegate('.delete-post', 'click', function () {
+        var $post = $(this);
+        var html = '<span data-id="'+ $post.data('id') +'"' +
+            'data-title="'+ $post.data('title') +'"' +
+            'style="margin-bottom: 5px;' +
+            'margin-right: 5px;' +
+            'background: #1991d1;' +
+            'white-space: normal;' +
+            'word-break: break-all"' +
+            'class="btn btn-default post_bar">' + $post.data('title') +
+            '</span>';
+        $('#listPostBody').append(html);
+        $post.parent().parent().remove();
+    });
+    $('#body-sitebar').delegate('button[type=reset]', 'click', function () {
+        $('#body-sitebar').load(location.href + " #body-sitebar>*","");
+    });
+</script>
