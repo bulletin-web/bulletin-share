@@ -1,0 +1,101 @@
+1535615875a:1:{s:17:"about-company.htm";a:8:{s:8:"fileName";s:17:"about-company.htm";s:7:"content";s:1056:"title = "About Company"
+url = "/about-company"
+layout = "blog-layout"
+==
+<link rel="stylesheet" href="{{ 'assets/css/static-page.css'|theme }}">
+<div class="container">
+	<section class="company">
+		<h3 class="title_page_static">会社概要</h3>
+		<table>
+			<tbody>
+				<tr>
+					<td>会社名</td>
+					<td>●●●株式会社</td>
+				</tr>
+
+				<tr>
+					<td>所在地</td>
+					<td>●●●東京、日本</td>
+				</tr>
+
+				<tr>
+					<td>設立</td>
+					<td>平成●●●年●●●月●●●日</td>
+				</tr>
+
+				<tr>
+					<td>事業</td>
+					<td>事業内容</td>
+				</tr>
+
+				<tr>
+					<td>社員数</td>
+					<td>●●●名 (●●●年●●●月現在)</td>
+				</tr>
+
+				<tr>
+					<td>主要業務</td>
+					<td>主要業務の内容</td>
+				</tr>
+
+				<tr>
+					<td>お問い合わせ</td>
+					<td><a href="mailto:info@AAA.co.jp">info@AAA.co.jp</a></td>
+				</tr>
+
+				<tr>
+					<td>ウェブサイト</td>
+					<td><a href="http://AAA.co.jp">http://AAA.co.jp</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</div>";s:5:"mtime";i:1533107821;s:6:"markup";s:983:"<link rel="stylesheet" href="{{ 'assets/css/static-page.css'|theme }}">
+<div class="container">
+	<section class="company">
+		<h3 class="title_page_static">会社概要</h3>
+		<table>
+			<tbody>
+				<tr>
+					<td>会社名</td>
+					<td>●●●株式会社</td>
+				</tr>
+
+				<tr>
+					<td>所在地</td>
+					<td>●●●東京、日本</td>
+				</tr>
+
+				<tr>
+					<td>設立</td>
+					<td>平成●●●年●●●月●●●日</td>
+				</tr>
+
+				<tr>
+					<td>事業</td>
+					<td>事業内容</td>
+				</tr>
+
+				<tr>
+					<td>社員数</td>
+					<td>●●●名 (●●●年●●●月現在)</td>
+				</tr>
+
+				<tr>
+					<td>主要業務</td>
+					<td>主要業務の内容</td>
+				</tr>
+
+				<tr>
+					<td>お問い合わせ</td>
+					<td><a href="mailto:info@AAA.co.jp">info@AAA.co.jp</a></td>
+				</tr>
+
+				<tr>
+					<td>ウェブサイト</td>
+					<td><a href="http://AAA.co.jp">http://AAA.co.jp</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</div>";s:4:"code";N;s:5:"title";s:13:"About Company";s:3:"url";s:14:"/about-company";s:6:"layout";s:11:"blog-layout";}}

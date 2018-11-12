@@ -1,0 +1,66 @@
+1535615876a:1:{s:19:"site/new-header.htm";a:5:{s:8:"fileName";s:19:"site/new-header.htm";s:7:"content";s:1276:"
+<div class="container" style="padding: 0px !important;">
+    <div id="nav-sm"><div id="nav-sm-content">
+        <ul></ul>
+    </div></div>
+    {% if demoSettings.infoSetting.searchable %}
+    {% if hasPreview != true %}
+    {{ form_open({ class: 'search-form', request: 'onHandleForm', url: '/blog/search/' }) }}
+    <div class="input-group custom_width_setting">
+        <input type="text" class="form-control" id="text_keyword_search" name="search" placeholder="記事検索" value="{{ search }}">
+        <div class="input-group-addon">
+            <button type="submit"><i class="ico-magnifier"></i></button>
+        </div>
+    </div>
+    {{ form_close() }}
+    {% endif %}
+    {% endif %}
+
+    <div class="header">
+        <span class="nav-sm-btn">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+            <span class="line-3"></span>
+        </span>
+        <a href="{{ hasPreview ? 'javascript:;' : '/' }}" class="logo" title="Blog">
+            <img src="https://prost.hutec.info/storage/app/media/1519727596.logo.png" alt="">
+        </a>
+        {% if hasPreview != true %}
+        <span class="search-sm-btn" style="background: #0089CF;">
+		<i class="ico-magnifier"></i>
+		</span>
+        {% endif %}
+    </div>
+</div></header>";s:5:"mtime";i:1535343571;s:6:"markup";s:1275:"<div class="container" style="padding: 0px !important;">
+    <div id="nav-sm"><div id="nav-sm-content">
+        <ul></ul>
+    </div></div>
+    {% if demoSettings.infoSetting.searchable %}
+    {% if hasPreview != true %}
+    {{ form_open({ class: 'search-form', request: 'onHandleForm', url: '/blog/search/' }) }}
+    <div class="input-group custom_width_setting">
+        <input type="text" class="form-control" id="text_keyword_search" name="search" placeholder="記事検索" value="{{ search }}">
+        <div class="input-group-addon">
+            <button type="submit"><i class="ico-magnifier"></i></button>
+        </div>
+    </div>
+    {{ form_close() }}
+    {% endif %}
+    {% endif %}
+
+    <div class="header">
+        <span class="nav-sm-btn">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+            <span class="line-3"></span>
+        </span>
+        <a href="{{ hasPreview ? 'javascript:;' : '/' }}" class="logo" title="Blog">
+            <img src="https://prost.hutec.info/storage/app/media/1519727596.logo.png" alt="">
+        </a>
+        {% if hasPreview != true %}
+        <span class="search-sm-btn" style="background: #0089CF;">
+		<i class="ico-magnifier"></i>
+		</span>
+        {% endif %}
+    </div>
+</div></header>";s:4:"code";N;}}

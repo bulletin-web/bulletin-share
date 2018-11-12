@@ -1,0 +1,48 @@
+1535615876a:1:{s:19:"site/new-footer.htm";a:7:{s:8:"fileName";s:19:"site/new-footer.htm";s:7:"content";s:971:"[blogCategories]
+[blogMenu]
+==
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% set footerMenu = blogMenu.getFooterMenu() %}
+            {% if footerMenu %}
+            <ul class="fLink">
+                {% for menu in footerMenu %}
+                {% if blogMenu.getMenuLink(menu.type, menu.id) %}
+                <li><a href="{{ hasPreview ? 'javascript:;' : blogMenu.getMenuLink(menu.type, menu.id) }}">{{ str_limit(blogMenu.getMenuName(menu.type, menu.id), 20) }}</a></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            <a href="{{ hasPreview ? 'javascript:;' : '/' }}" class="fLogo">
+                <img src="https://prost.hutec.info/storage/app/media/1519727596.logo.png" alt="">
+            </a>
+            <p class="copyright">{{ demoSettings.infoSetting.copyright }}</p>
+        </div>
+    </div>
+</div>
+
+";s:5:"mtime";i:1535343571;s:6:"markup";s:938:"<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% set footerMenu = blogMenu.getFooterMenu() %}
+            {% if footerMenu %}
+            <ul class="fLink">
+                {% for menu in footerMenu %}
+                {% if blogMenu.getMenuLink(menu.type, menu.id) %}
+                <li><a href="{{ hasPreview ? 'javascript:;' : blogMenu.getMenuLink(menu.type, menu.id) }}">{{ str_limit(blogMenu.getMenuName(menu.type, menu.id), 20) }}</a></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div class="col-md-12">
+            <a href="{{ hasPreview ? 'javascript:;' : '/' }}" class="fLogo">
+                <img src="https://prost.hutec.info/storage/app/media/1519727596.logo.png" alt="">
+            </a>
+            <p class="copyright">{{ demoSettings.infoSetting.copyright }}</p>
+        </div>
+    </div>
+</div>";s:4:"code";N;s:14:"blogCategories";a:0:{}s:8:"blogMenu";a:0:{}}}

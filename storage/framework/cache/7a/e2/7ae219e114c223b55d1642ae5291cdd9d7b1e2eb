@@ -1,0 +1,5 @@
+1535615876a:1:{s:18:"site/js_custom.htm";a:5:{s:8:"fileName";s:18:"site/js_custom.htm";s:7:"content";s:97:"{% if hasPreview %}
+<script src="{{ 'assets/javascript/custom.js'|theme }}"></script>
+{% endif %}";s:5:"mtime";i:1533107821;s:6:"markup";s:97:"{% if hasPreview %}
+<script src="{{ 'assets/javascript/custom.js'|theme }}"></script>
+{% endif %}";s:4:"code";N;}}
