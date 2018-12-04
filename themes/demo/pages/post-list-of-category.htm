@@ -48,6 +48,11 @@ return Redirect::to('404');
                             {% for post in posts %}
                             <li class="col-md-4 col-sm-4 col-xs-6">
                                 <div class="card">
+                                    {% if blogPosts.checkDisplayPage() %}
+                                        {% if blogPosts.isNewPost(post.id) %}
+                                        <span style="float: right" class="{{ blogPosts.getStyle() }}">{{ blogPosts.getIconNewTextView() }}</span>
+                                        {% endif %}
+                                    {% endif %}
                                     <a href="/blog/post/{{ post.id }}" class="card-main">
                                         <div class="card-image" style="background-image:url('{{ post.featured_image.path }}')"></div>
                                         <div class="card-cate clearfix">
@@ -65,7 +70,9 @@ return Redirect::to('404');
                                         <div class="card-body">
                                             <p class="card-description">{{ str_limit(post.title, 50) }}</p>
                                             <span class="card-date"><i class="ico-calendar-full" style="margin-right: 5px"></i>{{ post.published_at|date('Y.m.d') }}</span>
-                                            <span class="card-time"><i class="ico-clock2" style="margin-right: 5px"></i>{{ post.published_at|date('H:i') }}</span>
+                                            {% if blogPosts.getCountComment(post.id) > 0 %}
+                                            <span class="card-time" style="margin-left: 10px "><i class="glyphicon glyphicon-comment" style="margin-right: 5px"></i>{{ blogPosts.getCountComment(post.id) }}</span>
+                                            {% endif %}
                                         </div>
                                     </a>
                                     <div class="line" style="background-color: {{ blogPosts.getColorOfPost(post.id) }};"></div>
@@ -108,6 +115,9 @@ return Redirect::to('404');
                                             <span class="date"><i class="ico-calendar-31"></i>{{ post.published_at|date('Y.m.d') }}</span>
                                             {% if post.count_view %}
                                             <span class=""><i class="ico-graph"></i>{{ post.count_view }}</span>
+                                            {% endif %}
+                                            {% if blogPosts.getCountComment(post.id) > 0 %}
+                                            <span class="card-time" ><i class="glyphicon glyphicon-comment" style="margin-right: 5px"></i>{{ blogPosts.getCountComment(post.id) }}</span>
                                             {% endif %}
                                         </small>
                                     </div>

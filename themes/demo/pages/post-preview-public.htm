@@ -43,6 +43,9 @@ function onEnd() {
                         <div class="col-md-4 timestamp">
                             <span class="date"><i class="ico-calendar-full"></i> {{ "now"|date("Y.m.d") }}</span>
                             <span class="time"><i class="ico-clock2"></i> {{ "now"|date("H.i") }}</span>
+                            {% if blogPosts.getCountComment(post.id) > 0 %}
+                            <span class="card-time" style="margin-left: 10px "><i class="glyphicon glyphicon-comment" style="margin-right: 5px"></i>{{ blogPosts.getCountComment(post.id) }}</span>
+                            {% endif %}
                         </div>
                     </div>
                     <img src="{{ preview.featured_image.path }}"
@@ -110,6 +113,9 @@ function onEnd() {
                                             <span class="date"><i class="ico-calendar-31"></i>{{ post.published_at|date('Y.m.d') }}</span>
                                             {% if post.count_view %}
                                             <span class=""><i class="ico-graph"></i>{{ post.count_view }}</span>
+                                            {% endif %}
+                                            {% if blogPosts.getCountComment(post.id) > 0 %}
+                                            <span class="card-time" ><i class="glyphicon glyphicon-comment" style="margin-right: 5px"></i>{{ blogPosts.getCountComment(post.id) }}</span>
                                             {% endif %}
                                         </small>
                                     </div>

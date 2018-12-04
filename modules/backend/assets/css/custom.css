@@ -38,6 +38,14 @@
     margin-top: 10px;
 }
 
+.mt-35{
+    margin-top: 35px;
+}
+
+.mt-100{
+    margin-top: 100px;
+}
+
 .message-custom {
     display: block !important;
 }
@@ -386,4 +394,13 @@ ul.interview-content li.listItem:nth-child(even):before {
     border-color: #656d79;
     margin-left: 15px;
 
+}
+
+.btn-red{
+    background-color: red;
+    color: #fff;
+}
+
+.btn-red:hover{
+    background-color: #660000;
 }

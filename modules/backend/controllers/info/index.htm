@@ -114,6 +114,25 @@
         </div>
     </div>
     <div class="row">
+        <br><h4>いいね機能</h4>
+        <div class="col-lg-9 col-sm-12 col-xs-12">
+            <div class="form-group  radio-field span-full" data-field-name="searchable">
+                <!-- Radio List -->
+                <div class="radio custom-radio radio-inline">
+                    <input id="aa0be64bf068907f728661204a41abd1" name="Info[like_status]" value="表示" type="radio" checked >
+                    <label for="aa0be64bf068907f728661204a41abd1">表示</label>
+                </div>
+                <div class="radio custom-radio radio-inline">
+                    <input id="aa0be64bf068907f728661204a41abd9"
+                           name="Info[like_status]" value="非表示"
+                           type="radio" <?= $this->checkInput($post['like_status'], isset($this->data->like_status) ? $this->data->like_status : null, '非表示') ?>
+                    >
+                    <label for="aa0be64bf068907f728661204a41abd9">非表示</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <br><h4>インターネット設定</h4>
         <div class="col-lg-9 col-sm-12 col-xs-12">
             <div class="form-group  radio-field span-full" data-field-name="searchable" id="Form-field-Info-searchable-group">
@@ -147,6 +166,64 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <!--settings icon new-->
+    <div class="row">
+        <br><h4>新着表示設定</h4>
+        <div class="col-md-12">
+            <!--display in page?-->
+            <div class="form-group radio-field span-full">
+                <!-- Radio List -->
+                <div class="radio custom-radio radio-inline">
+                    <input id="infor-display-page-top" name="Info[icon_new_display_page]" value="0" type="radio" checked >
+                    <label for="infor-display-page-top">トップページのみ</label>
+                </div>
+                <div class="radio custom-radio radio-inline">
+                    <input id="infor-display-page-both" name="Info[icon_new_display_page]" value="1" type="radio" <?= $this->checkInput($post['icon_new_display_page'], isset($this->data->icon_new_display_page) ? $this->data->icon_new_display_page : null, 1) ?> >
+                    <label for="infor-display-page-both">アーカイブ含む</label>
+                </div>
+            </div>
+            <!--count day view icon-->
+                <div class="row">
+                    <div class="col-md-3 col-xs-3">
+                        <label for="Form-field-Count-Day-View">表示日数</label>
+                        <!-- Text -->
+                        <input type="number" name="Info[icon_new_count_day_view]" id="Form-field-Count-Day-View" class="form-control" autocomplete="off" value="<?= $this->checkInput($post['icon_new_count_day_view'], isset($this->data->icon_new_count_day_view) ? $this->data->icon_new_count_day_view : null) ?>">
+                    </div>
+                    <div class="col-md-8 col-xs-8" style="line-height: 80px">
+                        日以内に公開の記事
+                    </div>
+                </div>
+            <!--text view-->
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-3 col-xs-4 col-sm-4">
+                    <div class="form-group text-field span-full">
+                        <label for="Form-field-Text-View">表示テキスト</label>
+                        <!-- Text -->
+                        <input type="text" name="Info[icon_new_text_view]" id="Form-field-Text-View" class="form-control" autocomplete="off" maxlength="4" value="<?= $this->checkInput($post['icon_new_text_view'], isset($this->data->icon_new_text_view) ? $this->data->icon_new_text_view : null) ?>">
+                    </div>
+                </div>
+            </div>
+            <!--title view-->
+            <div class="form-group radio-field span-full">
+                <!-- Radio List -->
+                <div class="radio custom-radio radio-inline">
+                    <input id="title-view-0" name="Info[icon_new_title_view]" value="0" type="radio" checked >
+                    <label for="title-view-0">スタイルA</label>
+                </div>
+                <div class="radio custom-radio radio-inline">
+                    <input id="title-view-1" name="Info[icon_new_title_view]" value="1" type="radio" <?= $this->checkInput($post['icon_new_title_view'], isset($this->data->icon_new_title_view) ? $this->data->icon_new_title_view : null, 1) ?>>
+                    <label for="title-view-1">スタイルB</label>
+                </div>
+                <div class="radio custom-radio radio-inline">
+                    <input id="title-view-2" name="Info[icon_new_title_view]" value="2" type="radio" <?= $this->checkInput($post['icon_new_title_view'], isset($this->data->icon_new_title_view) ? $this->data->icon_new_title_view : null, 2) ?>>
+                    <label for="title-view-2">スタイルC</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-xs-12 col-sm-12">
             <div class="form-group  textarea-field span-full    " data-field-name="access_analysis_tag" id="Form-field-Info-access_analysis_tag-group">
                 <label for="Form-field-Info-access_analysis_tag">アクセス解析タグ</label>
                 <!-- Textarea -->
@@ -245,7 +322,7 @@
             $('.list-ip-limits').each(function () {
                 $(this).removeAttr('disabled');
             });
-            
+
             $('#add-ip, #remove-ip').removeAttr('disabled');
         } else {
             $('.list-ip-limits').each(function () {

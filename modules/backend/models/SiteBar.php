@@ -81,6 +81,13 @@ class SiteBar extends Model
             $post['post_newest'] = post('SiteBar')['post_newest'];
         }
 
+        if (post('SiteBar')['type'] == 4) {
+            $post['css_list_tag'] = post('SiteBar')['css_list_tag'];
+            $post['min_post_list_tag'] = post('SiteBar')['min_post_list_tag'];
+            $post['sort_by_list_tag'] = post('SiteBar')['sort_by_list_tag'];
+            $post['display_count_list_tag'] = post('SiteBar')['display_count_list_tag'];
+        }
+
         ksort($post);
 
         $this->content_type = json_encode($post);
@@ -108,6 +115,18 @@ class SiteBar extends Model
 
         if (post('SiteBar')['type'] == 3) {
             $this->rules['banner_image'] = 'required';
+        }
+
+        if (post('SiteBar')['type'] == 4) {
+            if (empty(post('SiteBar')['name'])) {
+                throw new ValidationException(['error' => 'タイトルは、必ず指定してください。']);
+            }
+            if (empty(post('SiteBar')['css_list_tag'])) {
+                throw new ValidationException(['error' => 'CSSクラスを入力してくささい。']);
+            }
+            if (empty(post('SiteBar')['min_post_list_tag'])) {
+                throw new ValidationException(['error' => '最小記事件数設定を入力してください。']);
+            }
         }
 
         if (!empty(post('SiteBar')['link'])) {

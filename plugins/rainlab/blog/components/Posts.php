@@ -2,7 +2,9 @@
 
 use Backend\Classes\ContentTag;
 use Backend\Models\DisplaySetting;
+use Backend\Models\Info;
 use Backend\Models\SiteBar;
+use RainLab\Blog\Models\Comment;
 use RainLab\Blog\Models\Tag as BlogTag;
 use RainLab\Blog\Models\Tag;
 use Redirect;
@@ -179,6 +181,16 @@ class Posts extends ComponentBase
             $currentPage = $this->property('pageNumber');
             if ($currentPage > ($lastPage = $this->postsByTag->lastPage()) && $currentPage > 1)
                 return Redirect::to($this->currentPageUrl([$pageNumberParam => $lastPage]));
+        }
+
+        $this->setCookieForNewUser();
+    }
+
+    public function setCookieForNewUser()
+    {
+        $randomString = md5(uniqid(rand(), true));
+        if (!isset($_COOKIE['user'])) {
+            setcookie('user', $randomString, 2147483647, '/');
         }
     }
 
@@ -468,7 +480,6 @@ class Posts extends ComponentBase
                 break;
             }
         }
-
         return $name;
     }
 
@@ -543,5 +554,112 @@ class Posts extends ComponentBase
         }
 
         return $dataReturn;
+    }
+
+    public function getCountComment($idPost)
+    {
+        $comments = Comment::where('post_id', $idPost)->get();
+
+        return count($comments);
+    }
+
+    public function getIconNewTextView()
+    {
+        $inforSite = Info::first();
+
+        return $inforSite->icon_new_text_view;
+    }
+
+    public function isNewPost($idPost)
+    {
+        $inforSite = Info::first();
+        $post = BlogPost::find($idPost);
+
+        if (!$inforSite) {
+            return false;
+        }
+
+        $countDayView = $inforSite->icon_new_count_day_view;
+        $published_at = $post->published_at;
+        $current = date('Y-m-d H:i:s');
+
+        if (strtotime($published_at . "+" . $countDayView . "days") <= strtotime($current)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function checkDisplayPage()
+    {
+        $inforSite = Info::first();
+
+        if (!$inforSite) {
+            return false;
+        } elseif ($inforSite->icon_new_display_page == 0) return false;
+
+        return true;
+    }
+
+    public function getStyle()
+    {
+        $inforSite = Info::first();
+
+        switch ($inforSite->icon_new_title_view) {
+            case 0: {
+                return "icon-new-styleA";
+                break;
+            }
+            case 1: {
+                return "icon-new-styleB";
+                break;
+            }
+            case 2: {
+                return "icon-new-styleC";
+                break;
+            }
+        }
+    }
+
+    public function checkLikeStatus()
+    {
+        $inforSite = Info::first();
+
+        if (!$inforSite || $inforSite->like_status == '非表示') return false;
+
+        return true;
+    }
+
+    public function checkLike($idPost)
+    {
+        $cookieUser = $_COOKIE['user'];
+        $checkLike = Db::table('rainlab_blog_check_like_post')->where('cookie_user', $cookieUser)->where('post_id', $idPost)->get();
+        if (count($checkLike) > 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static function countUpLike()
+    {
+        $idPost = post('post-id');
+        $cookieUser = $_COOKIE['user'];
+        $post = new Posts;
+        if ($post->checkLike($idPost)) {
+            Db::beginTransaction();
+            try {
+                Db::table('rainlab_blog_check_like_post')->insert([
+                    'cookie_user' => $cookieUser,
+                    'post_id' => $idPost
+                ]);
+
+                Db::table('rainlab_blog_posts')->where('id', $idPost)->increment('count_like', 1);
+            } catch (\Exception $e) {
+                Db::rollBack();
+                throw $e;
+            }
+            Db::commit();
+        }
     }
 }

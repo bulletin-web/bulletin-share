@@ -33,6 +33,11 @@ function onEnd() {
 				{% for post in posts %}
 				<li class="col-md-3 col-sm-4 col-xs-6">
 					<div class="card">
+                        {% if blogPosts.checkDisplayPage() %}
+                            {% if blogPosts.isNewPost(post.id) %}
+                            <span style="float: right" class="{{ blogPosts.getStyle() }}">{{ blogPosts.getIconNewTextView() }}</span>
+                            {% endif %}
+                        {% endif %}
 						<a href="/blog/post/{{ post.id }}" class="card-main">
 							<div class="card-image" style="background-image:url('{{ post.featured_image.path }}')"></div>
 
@@ -42,10 +47,11 @@ function onEnd() {
 							</span>
 							<div class="card-body">
 								<p class="card-description">{{ str_limit(post.title, 80) }}</p>
-								<span class="card-time"><i class="ico-clock2"></i> {{ post.published_at|date('H:i') }}</span>
 								<span class="card-date"><i class="ico-calendar-full"></i> {{ post.published_at|date('Y.m.d') }}</span>
-							</div>
-
+                                {% if blogPosts.getCountComment(post.id) > 0 %}
+                                <span class="card-time" style="margin-left: 10px "><i class="glyphicon glyphicon-comment" style="margin-right: 5px"></i>{{ blogPosts.getCountComment(post.id) }}</span>
+                                {% endif %}
+                            </div>
 						</a>
 						<div class="line" style="background-color: {{ blogPosts.getColorOfPost(post.id) }};"></div>
 					</div>

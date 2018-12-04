@@ -1,6 +1,7 @@
 {% if hasComment %}
 <div class="row">
     {% if Comment.data.success %}
+
     <div class="success"></div>
     {% endif %}
     <div class="col-md-12">
@@ -9,7 +10,15 @@
             {% for comment in post.comments %}
             <article style="display:none;">
             <b>{{ comment.name }}: </b><span>{{ comment.created_at|date('Y.m.d - H:i') }}</span>
+                <span>&ensp;&ensp;{{ comment.email }}</span>
+                <span>&ensp;&ensp;{{ comment.sex }}</span>
+                <span>&ensp;&ensp;{{ comment.age }}</span>
             <p style="word-wrap: break-word;" class="more">{{ Comment.replaceTextBlackList(comment.content) }}</p>
+                {% if comment.others_item %}
+                    {% for item in Comment.getContentOfOthersItem(comment.id) %}
+                        <p style="word-wrap: break-word;" class="more">{{ item }}</p>
+                    {% endfor %}
+                {% endif %}
             </article>
             {% endfor %}
             {% if post.comments.count > 8 %}
@@ -31,18 +40,72 @@
 
     <div class="col-md-12">
         {{ form_open({ request:'store'}) }}
-            <fieldset>
-                <div class="form-group">
-                    <input name="name" class="form-control" placeholder="名前" type="text" maxlength="64" value="{{ Comment.data.post.name }}">
+            {% for settingsComment in Comment.loadSettingsComments() %}
+                <div class="row">
+                    <div class="custom-col-md-1 custom-col-xs-1 custom-col-sm-1 custom-col-lg-1">
+                        {% if settingsComment.require == 1 %}
+                        <span class="glyphicon
+                            {% if settingsComment.type == 'text' or settingsComment.type == 'mail' %}
+                                custom-icon-require-text
+                            {% elseif settingsComment.type == 'pulldown' %}
+                                custom-icon-require-pulldown
+                            {% elseif settingsComment.type == 'radio' %}
+                                custom-icon-require-radio
+                            {% elseif settingsComment.type == 'free_comment' or settingsComment.type == 'free_text' %}
+                                custom-icon-require-area
+                            {% endif %}">
+                            &#xe006;
+                        </span>
+                        {% else %}
+                        <span class="glyphicon" style="font-size: 10px">&#32;</span>
+                        {% endif%}
+                    </div>
+
+                    <div class="custom-col-md-11 custom-col-xs-11 custom-col-sm-11 custom-col-lg-11">
+                        {% if settingsComment.type == 'text' or settingsComment.type == 'mail' %}
+                        <div class="form-group">
+                            <input
+                                name="ip-{{ settingsComment.id }}"
+                                class="form-control"
+                                placeholder="{{ settingsComment.name }}"
+                                type="text" maxlength="64"
+                                value="{{ Comment.data.post.name }}">
+                        </div>
+                        {% endif %}
+
+                        {% if settingsComment.type == 'free_comment' or settingsComment.type == 'free_text' %}
+                        <div class="form-group">
+                            <textarea name="ip-{{ settingsComment.id }}"
+                                      class="form-control"
+                                      placeholder="{{ settingsComment.name }}"
+                                      rows="5">{% if Comment.data.error %}{{ Comment.data.post.content }}{% endif %}</textarea>
+                        </div>
+                        {% endif %}
+
+                        {% if settingsComment.type == 'pulldown' %}
+                        <span>{{ settingsComment.name }}</span>
+                        <div class="form-group" style="margin-top: 10px">
+                            <select class="form-control" name="ip-{{settingsComment.id}}">
+                                {% for item in Comment.getItemForPullDownOrRadio(settingsComment) %}
+                                <option value="{{ item }}">{{ item }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% endif %}
+
+                        {% if settingsComment.type == 'radio' %}
+                        <span>{{ settingsComment.name }}</span>
+                        {% for item in Comment.getItemForPullDownOrRadio(settingsComment) %}
+                        <div class="radio">
+                            <label><input type="radio" value="{{ item }}" name="ip-{{settingsComment.id}}">{{ item }}</label>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input name="email" class="form-control" placeholder="電子メール" type="text" maxlength="64" value="{{ Comment.data.post.email }}">
-                </div>
-                <div class="form-group">
-                    <textarea name="content" class="form-control" placeholder="内容" rows="5">{% if Comment.data.error %}{{ Comment.data.post.content }}{% endif %}</textarea>
-                </div>
-                <input name="post_id" value="{{ post_id }}" hidden="hidden">
-            </fieldset>
+            {% endfor %}
+            <input name="post_id" value="{{ post_id }}" hidden="hidden">
+            <p><span class="glyphicon" style="font-size: 10px;color: grey">&#xe006;</span>必須項目</p>
             <button class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp;&nbsp;保存&nbsp;&nbsp;&nbsp;&nbsp;</button>
             <button type="reset" class="btn btn-default">リセット</button>
         {{ form_close() }}
@@ -50,3 +113,4 @@
 </div>
 <div style="padding: 5px;"></div>
 {% endif %}
+

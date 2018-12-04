@@ -108,3 +108,62 @@
 </div>
 <?= $this->makePartial('js_banner') ?>
 <?php endif ?>
+
+<?php if(Session::get('sitebar_type') == 4): ?>
+<div class="form-group">
+    <label>CSSクラス（使える文字：半角英数字と記号（_-…）</label>
+    <input type="text" class="form-control" name="SiteBar[css_list_tag]">
+</div>
+<div class="form-group">
+    <label class="row" style="padding-left: 15px;">
+        最小記事件数設定（タグが付いている記事数）
+    </label>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="text" class="form-control" name="SiteBar[min_post_list_tag]">
+        </div>
+        <div class="col-md-4" style="padding-top: 10px">
+            件以下は表示しない
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-3">
+            <select name="SiteBar[sort_by_list_tag]" class="form-control">
+                <option value="1">件数(降順)</option>
+                <option value="2">件数（昇順）</option>
+                <option value="3">五十音（降順）</option>
+                <option value="4">五十音（昇順）</option>
+                <option value="5">ランダム</option>
+                <option value="6">ID（降順）</option>
+                <option value="7">ID（昇順）</option>
+            </select>
+        </div>
+        <div class="col-md-2" style="padding-top: 10px">
+            順で表示する
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="checkbox custom-checkbox" tabindex="0">
+        <input type="hidden" name="SiteBar[display_count_list_tag]" value="0">
+        <input type="checkbox" id="Form-field-Sitebar-Display-Count" name="SiteBar[display_count_list_tag]" value="1">
+        <label for="Form-field-Sitebar-Display-Count">タグの件数を表示</label>
+    </div>
+</div>
+
+
+    <script type="application/javascript">
+        window.onload = function () {
+
+            var elem_image = document.getElementById("Form-field-SiteBar-banner_image-group");
+            elem_image.parentNode.removeChild(elem_image);
+
+            var elem_des = document.getElementById("Form-field-SiteBar-description-group");
+            elem_des.parentNode.removeChild(elem_des);
+            return false;
+        }
+    </script>
+<?php endif ?>

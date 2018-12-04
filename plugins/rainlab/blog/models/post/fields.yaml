@@ -55,6 +55,9 @@ fields:
     has_comment:
         type: partial
         path: ~/plugins/rainlab/blog/controllers/posts/_has_comment.htm
+    has_like:
+        type: partial
+        path: ~/plugins/rainlab/blog/controllers/posts/_has_like.htm
     published_at:
         span: left
         cssClass: checkbox-align

@@ -19,6 +19,8 @@
         <?php endif ?>
         <?php if($this->post->type == 3): ?>
         <h4><b>バナー</b></h4><br>
+        <?php endif ?><?php if(Session::get('sitebar_type') == 4): ?>
+        <h4><b>タグ一覧</b></h4><br>
         <?php endif ?>
         <?= $this->formRender() ?>
     </div>

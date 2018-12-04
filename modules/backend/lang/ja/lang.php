@@ -328,6 +328,8 @@ return [
             'status' => '無効',
             'delete_confirm' => 'このワードを本当に削除しますか？',
         ],
+        'comment_list' => 'コメント　入力項目一覧',
+        'comment' => 'コメント内容管理',
     ],
     'info_setting' => [
         'title' => 'サイト基本情報',

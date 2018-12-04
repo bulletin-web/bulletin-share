@@ -42,3 +42,23 @@
 1.2.14: Added post exception property to the post list component, useful for showing related posts.
 1.2.15: Back-end navigation sort order updated.
 1.2.16: Added `nextPost` and `previousPost` to the blog post component.
+1.2.17:
+    - Create table settings comment.
+    - create_comments_table.php
+1.2.18:
+    - Add Colums to table content comment
+    - add_columns_table_content_comments.php
+1.2.19:
+    - Delete column content in table `content_comment` and make seed for table `rainlab_blog_comments`
+    - delete_column_content_table_content_comment.php
+    - seed_for_table_rainlab_blog_comments.php
+1.2.20:
+    - Set nullable for columns in table `content_comment`
+    - nullable_columns_table_content_comment.php
+1.2.21:
+    - Seed item content comment
+    - seed_item_content_comment_table_rainlab_blog_comments.php
+1.2.22:
+    - Create table check like and add column count like to table posts
+    - add_column_count_like_table_posts.php
+    - create_table_check_like_post.php

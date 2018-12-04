@@ -534,8 +534,15 @@ class ServiceProvider extends ModuleServiceProvider
                     'permissions' => ['backend.blog.edit_tag'],
                     'order'       => 130
                 ],
+                'comment_setting' => [
+                    'label'       => 'backend::lang.comment.comment_list',
+                    'category'    => SettingsManager::CATEGORY_COMMENTS,
+                    'url'         => Backend::url('rainlab/blog/comments'),
+                    'permissions' => ['backend.comment.*'],
+                    'order'       => 140
+                ],
                 'comment_manager' => [
-                    'label'       => 'コメント内容管理',
+                    'label'       => 'backend::lang.comment.comment',
                     'category'    => SettingsManager::CATEGORY_COMMENTS,
                     'url'         => Backend::url('rainlab/blog/comment'),
                     'permissions' => ['backend.comment.*'],

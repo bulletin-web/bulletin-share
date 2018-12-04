@@ -23,6 +23,8 @@ class InfoController extends Controller
         'license' => 'between:1,255',
         'username_certificate' => 'required_if:is_certificate,==,1|between:1,255',
         'password_certificate' => 'required_if:is_certificate,==,1|between:1,255',
+        'icon_new_count_day_view' => 'required|numeric|min:1',
+        'icon_new_text_view' => 'required'
     ];
 
     public function messages($post){
@@ -68,6 +70,11 @@ class InfoController extends Controller
                 'accept_twitter'        => $post['accept_twitter'],
                 'user_create_id'        => isset($info->user_create_id) ? $info->user_create_id : BackendAuth::getUser()->id,
                 'user_update_id'        => BackendAuth::getUser()->id,
+                'like_status'           => $post['like_status'],
+                'icon_new_display_page' => $post['icon_new_display_page'],
+                'icon_new_count_day_view' => $post['icon_new_count_day_view'],
+                'icon_new_text_view'    => $post['icon_new_text_view'],
+                'icon_new_title_view'   => $post['icon_new_title_view'],
             ]
         );
     }

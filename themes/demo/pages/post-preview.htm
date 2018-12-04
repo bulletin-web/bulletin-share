@@ -90,6 +90,9 @@ $this['hasPreviewJS'] = true;
                                         {% if post.count_view %}
                                         <span class=""><i class="ico-graph"></i>{{ post.count_view }}</span>
                                         {% endif %}
+                                        {% if blogPosts.getCountComment(post.id) > 0 %}
+                                        <span class="card-time" ><i class="glyphicon glyphicon-comment" style="margin-right: 5px"></i>{{ blogPosts.getCountComment(post.id) }}</span>
+                                        {% endif %}
                                     </small>
                                 </div>
                             </a>

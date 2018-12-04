@@ -26,6 +26,7 @@ class Posts extends Controller
     public $workflow_status;
     public $slug;
     public $listTagMenu;
+    public $setting;
 
     public $implement = [
         'Backend.Behaviors.FormController',
@@ -78,6 +79,7 @@ class Posts extends Controller
         $this->listTagMenu = app('content.menu')->getListMenuGlobal();
         $this->is_create = true;
         $this->slug = app('cms.post')->getSlug();
+        $this->setting = app('backend.info')->getData();
 
         return $this->asExtension('FormController')->create();
     }
@@ -105,6 +107,7 @@ class Posts extends Controller
         $this->parentTagListCurrent = app('content.tag')->getParentTaglistCurrent($recordId);
         $this->listAllTagOfPost = app('content.tag')->getAllTagOfPost($recordId);
         $this->workflow_status = app('backend.approve')->getWorkflowStatus($recordId);
+        $this->setting = app('backend.info')->getData();
 
         return $this->asExtension('FormController')->update($recordId);
     }

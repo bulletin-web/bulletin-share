@@ -130,7 +130,9 @@ return [
         'password' => 'パスワード',
         'password_confirmation' => 'パスワード確認',
         'tag_color' => '色',
-        'copyright' => 'コピーライト'
+        'copyright' => 'コピーライト',
+        'icon_new_count_day_view' => '表示日数',
+        'icon_new_text_view' => '表示テキスト'
     ],
 
 ];

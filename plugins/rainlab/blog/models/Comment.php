@@ -10,14 +10,14 @@ class Comment extends Model
     protected $table = 'content_comment';
 
     public $rules = [
-        'content' => 'required',
+
     ];
 
     public $attributeNames = [
         'content' => 'コメント'
     ];
 
-    protected $fillable = ['name', 'email', 'content', 'post_id', 'user_updated_id'];
+    protected $fillable = ['name', 'email', 'content', 'post_id', 'user_updated_id', 'age', 'sex', 'others_item'];
 
     public $belongsTo = [
         'posts' => ['RainLab\Blog\Models\Post', 'key' => 'post_id']

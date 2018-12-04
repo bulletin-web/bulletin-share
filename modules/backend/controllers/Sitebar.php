@@ -68,7 +68,7 @@ class Sitebar extends Controller
     public function setType()
     {
         $sitebar_type = Request::get('sitebar_type');
-        if (in_array($sitebar_type, [1,2,3])) {
+        if (in_array($sitebar_type, [1,2,3,4])) {
             Session::put('sitebar_type', $sitebar_type);
             return redirect(url('backend/backend/sitebar/create'));
         }
